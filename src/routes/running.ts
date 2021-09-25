@@ -1,9 +1,9 @@
 import { Router } from 'express';
 
-import RunningController from '../controllers/RunningDemo';
-
 const router = Router();
 
-router.get('/validation', RunningController.runValidation);
+router.get('/validation', (req, res) => {
+  return 1;
+});
 
 export default router;
