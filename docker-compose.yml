@@ -1,0 +1,35 @@
+version: '2'
+services:
+  web:
+    container_name: nodejs-ts-docker
+    build: .
+    command: yarn start
+    volumes:
+      - .:/usr/src/app
+      - ./node_modules:/usr/src/app/node_modules
+    ports:
+      - "9000:9000"
+      - "9229:9229"
+  data:
+    container_name: nodejs-ts-data
+    image: debian
+    volumes:
+      - .docker/mysql:/var/lib/mysql
+      - .docker/data:/data
+      - .docker/logs/mysql:/var/log/mysql
+
+  mysql:
+    container_name: nodejs-ts-mysql
+    restart: always
+    image: mysql:5.7
+    command: mysqld --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+    volumes:
+      - ./.docker/provision/mysql/init:/docker-entrypoint-initdb.d
+    volumes_from:
+      - data
+    expose:
+      - "3306"
+    ports:
+      - "3319:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: root
