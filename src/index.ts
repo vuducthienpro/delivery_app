@@ -14,6 +14,7 @@ const LineStrategy = passportLine.Strategy;
 // import indexRouter from './routes/index';
 import runningRouter from './routes/running';
 import crawlRouter from './routes/crawl';
+import authRouter from './routes/auth';
 
 import winston from './config/winston';
 
@@ -53,52 +54,13 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 const clientID = process.env.clientIDGoogle;
 // auth google
-passport.use(
-  new LineStrategy(
-    {
-      channelID: process.env.CHANNEL_ID,
-      channelSecret: process.env.CHANNEL_SECRET,
-      callbackURL: process.env.CALLBACK_URL,
-      scope: ['profile', 'openid'],
-      botPrompt: 'normal',
-      uiLocales: 'en-US',
-    },(request, accessToken, refreshToken, profile, done) => {
-      winston.info(accessToken);
-      winston.info(refreshToken);
-      winston.info(profile);
-      winston.info(done);
-      return done(null, profile);
-    },
-  ),
-);
-passport.serializeUser((user, done) => {
-  done(null, user);
-});
-passport.deserializeUser((user, done) => {
-  done(null, user);
-});
+
+
 
 // app.use('/', indexRouter);
 app.use('/running', runningRouter);
 app.use('/crawl', crawlRouter);
-
-app.get('/', (req, res) => {
-  res.send('<a href="/auth/line">Login Google</a>');
-});
-
-app.get(
-  '/auth/line',
-  passport.authenticate('line', {
-    scope: ['profile'],
-  }),
-);
-
-app.get('/auth/line/callback',
-    passport.authenticate('line', {
-    failureRedirect: '/login',
-    successRedirect : '/',
-  })
-);
+app.use('/auth', authRouter);
 
 app.get('/failed', (req, res) => {
   res.send('Failed');
