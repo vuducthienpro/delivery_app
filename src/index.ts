@@ -9,10 +9,12 @@ import mongoose from 'mongoose';
 import config from './config/options';
 const GoogleStrategy = passportGoogle.Strategy;
 
+
 // routers
 // import indexRouter from './routes/index';
 import runningRouter from './routes/running';
 import crawlRouter from './routes/crawl';
+import authRouter from './routes/auth';
 
 import winston from './config/winston';
 
@@ -24,15 +26,15 @@ const app = express();
 mongoose
   .connect(process.env.DB_URL, config.mongo.options)
   .then((result) => {
-    winston.info('connect success1');
+    winston.info('connect success');
   })
-  .catch((error) => {
-    winston.info('error');
+  .catch ((error) => {
+    winston.info(error);
   });
 
 app.use(
   cookieSession({
-    name: 'google-auth-session',
+    name: 'auth-session',
     keys: ['key1', 'key2'],
     maxAge: 5000,
   }),
@@ -77,6 +79,20 @@ passport.deserializeUser((user, done) => {
 // app.use('/', indexRouter);
 app.use('/running', runningRouter);
 app.use('/crawl', crawlRouter);
+app.use('/auth', authRouter);
+
+app.get('/failed', (req, res) => {
+  res.send('Failed');
+});
+app.get('/success', isLoggedIn, (req, res) => {
+  res.send('Welcome');
+});
+
+app.get('/logout', (req, res) => {
+  req.session = null;
+  req.logout();
+  res.redirect('/');
+});
 
 app.get('/', (req, res) => {
   res.send('<a href="/auth/google">Login Google</a>');
