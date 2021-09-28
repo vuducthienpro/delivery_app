@@ -4,11 +4,8 @@ import logger from 'morgan';
 import path from 'path';
 import cookieSession from 'cookie-session';
 import passport from 'passport';
-import passportLine from 'passport-line-auth';
 import mongoose from 'mongoose';
 import config from './config/options';
-const LineStrategy = passportLine.Strategy;
-
 
 // routers
 // import indexRouter from './routes/index';
@@ -28,13 +25,13 @@ mongoose
   .then((result) => {
     winston.info('connect success');
   })
-  .catch ((error) => {
+  .catch((error) => {
     winston.info(error);
   });
 
 app.use(
   cookieSession({
-    name: 'line-auth-session',
+    name: 'auth-session',
     keys: ['key1', 'key2'],
     maxAge: 5000,
   }),
@@ -52,21 +49,22 @@ app.use(passport.session());
 app.use(logger('dev'));
 app.use(express.static(path.join(__dirname, 'public')));
 
-const clientID = process.env.clientIDGoogle;
-// auth google
-
-
-
 // app.use('/', indexRouter);
 app.use('/running', runningRouter);
 app.use('/crawl', crawlRouter);
 app.use('/auth', authRouter);
 
 app.get('/failed', (req, res) => {
-  res.send('Failed');
+  res.json({
+    status: 404,
+    result: 'Failed',
+  });
 });
 app.get('/success', isLoggedIn, (req, res) => {
-  res.send('Welcome');
+  res.json({
+    status: 200,
+    result: 'Welcome',
+  });
 });
 
 app.get('/logout', (req, res) => {
