@@ -2,7 +2,6 @@ import e, { Router } from 'express';
 import passport from 'passport';
 import passportLine from 'passport-line-auth';
 import passportGoogle from 'passport-google-oauth2';
-import winston from '../config/winston';
 import dotenv from 'dotenv';
 import User from '../models/User';
 const LineStrategy = passportLine.Strategy;
@@ -39,8 +38,7 @@ passport.use(
             social_id: profile.id,
           });
           const userModel = new User(data);
-          userModel.save()
-          .then((value) => res.json(value));
+          userModel.save();
         }
 
         if (err) {
