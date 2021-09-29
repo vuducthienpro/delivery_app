@@ -12,8 +12,7 @@ const ProductSchema = new mongoose.Schema({
     status: {type: Number, required: true, default: 1}, // 0: Out of stock - 1: Stocking
     quantity: {type: Number, required: true},
     description: {type: String, required: true},
-    schemaOptions,
-});
+}, schemaOptions);
 
 const Product = mongoose.model('Product', ProductSchema);
 export default Product;

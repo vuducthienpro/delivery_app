@@ -13,8 +13,7 @@ const UserSchema = new mongoose.Schema({
     role: {type: String, default: 'User'},
     social: {type: String, default: 'null'},
     social_id: {type:String, unique: true},
-    schemaOptions,
-});
+}, schemaOptions);
 
 const User = mongoose.model('User', UserSchema);
 export default User;
