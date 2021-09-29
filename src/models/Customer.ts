@@ -11,8 +11,7 @@ const CustomerSchema = new mongoose.Schema({
     email: {type: String, required: true},
     phone: {type: String, required: true},
     address: {type: String, required: true},
-    schemaOptions,
-});
+}, schemaOptions);
 
 const Customer = mongoose.model('Customer', CustomerSchema);
 export default Customer;

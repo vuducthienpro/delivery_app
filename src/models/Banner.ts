@@ -6,8 +6,7 @@ const schemaOptions = {
 
 const BannerSchema = new mongoose.Schema({
     url: {type: String, required: true},
-    schemaOptions,
-});
+}, schemaOptions);
 
 const Banner = mongoose.model('Banner', BannerSchema);
 export default Banner;
