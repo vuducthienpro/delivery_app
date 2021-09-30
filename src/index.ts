@@ -8,12 +8,15 @@ import mongoose from 'mongoose';
 import config from './config/options';
 
 // routers
-// import indexRouter from './routes/index';
 import runningRouter from './routes/running';
 import crawlRouter from './routes/crawl';
 import authRouter from './routes/auth';
 
+// log
 import winston from './config/winston';
+
+// models
+import Models from './models';
 
 // initialize configuration
 dotenv.config();
@@ -49,6 +52,7 @@ app.use(passport.session());
 app.use(logger('dev'));
 app.use(express.static(path.join(__dirname, 'public')));
 
+Models;
 // app.use('/', indexRouter);
 app.use('/running', runningRouter);
 app.use('/crawl', crawlRouter);
