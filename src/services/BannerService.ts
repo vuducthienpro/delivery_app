@@ -7,7 +7,7 @@ export class BannerService {
   }
 
   public static getBanner = (query: FilterQuery<BannerDocument>) => {
-    return Banner.findOne(query);
+    return Banner.findById(query);
   }
 
   public static createBanner = (input: DocumentDefinition<BannerDocument>) => {
