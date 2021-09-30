@@ -1,5 +1,11 @@
 import mongoose, { Schema } from 'mongoose';
 
+export interface CategoryDocument extends mongoose.Document {
+    _id: number;
+    name: string;
+    image: string;
+}
+
 const schemaOptions = {
     timestamps: { createdAt: 'created_at', updatedAt: 'updated_at' },
 };
