@@ -11,6 +11,7 @@ import config from './config/options';
 import runningRouter from './routes/running';
 import crawlRouter from './routes/crawl';
 import authRouter from './routes/auth';
+import bannerRouter from './routes/banner';
 
 // log
 import winston from './config/winston';
@@ -57,6 +58,7 @@ Models;
 app.use('/running', runningRouter);
 app.use('/crawl', crawlRouter);
 app.use('/auth', authRouter);
+app.use('/banner', bannerRouter);
 
 app.get('/failed', (req, res) => {
   res.json({
