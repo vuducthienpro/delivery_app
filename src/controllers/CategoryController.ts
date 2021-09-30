@@ -17,6 +17,12 @@ export class CategoryController {
 
   public static insertCategory = async (req, res, next) => {
     const dataBody = req.body;
+    if (req.files) {
+      dataBody.image = [];
+      req.files.forEach(element => {
+        dataBody.image.push(element.originalname);
+      });
+    }
     const data = await CategoryService.insertCategory(dataBody);
     if (!data) {
       return res.json({
