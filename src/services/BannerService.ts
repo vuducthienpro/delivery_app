@@ -1,5 +1,5 @@
 import Banner, { BannerDocument } from '../models/Banner';
-import { FilterQuery, DocumentDefinition, UpdateQuery } from 'mongoose';
+import { FilterQuery, DocumentDefinition, UpdateQuery, QueryOptions } from 'mongoose';
 
 export class BannerService {
   public static getAllBanner = () => {
@@ -17,8 +17,9 @@ export class BannerService {
   public static findAndUpdateBanner = (
     query: FilterQuery<BannerDocument>,
     update: UpdateQuery<BannerDocument>,
+    options: QueryOptions,
     ) => {
-      return Banner.findOneAndUpdate(query, update);
+      return Banner.findOneAndUpdate(query, update, options);
   }
 
   public static deleteBanner = (query: FilterQuery<BannerDocument>) => {
