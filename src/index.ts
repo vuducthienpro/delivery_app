@@ -5,13 +5,16 @@ import path from 'path';
 import cookieSession from 'cookie-session';
 import passport from 'passport';
 import mongoose from 'mongoose';
+import bodyParser from 'body-parser';
 import config from './config/options';
 
 // routers
 import runningRouter from './routes/running';
 import crawlRouter from './routes/crawl';
 import authRouter from './routes/auth';
+import categoryRouter from './routes/category';
 import bannerRouter from './routes/banner';
+import productRouter from './routes/product';
 
 // log
 import winston from './config/winston';
@@ -23,6 +26,15 @@ import Models from './models';
 dotenv.config();
 
 const app = express();
+
+// parse various different custom JSON types as JSON
+app.use(bodyParser.json());
+
+// // parse some custom thing into a Buffer
+// app.use(bodyParser.raw({ type: 'application/vnd.custom-type' }));
+
+// // parse an HTML body into a string
+// app.use(bodyParser.text({ type: 'text/html' }));
 
 mongoose
   .connect(process.env.DB_URL, config.mongo.options)
@@ -58,7 +70,9 @@ Models;
 app.use('/running', runningRouter);
 app.use('/crawl', crawlRouter);
 app.use('/auth', authRouter);
+app.use('/category', categoryRouter);
 app.use('/banner', bannerRouter);
+app.use('/product', productRouter);
 
 app.get('/failed', (req, res) => {
   res.json({
