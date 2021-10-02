@@ -7,6 +7,10 @@ export class CategoryService {
     return Category.find().populate('products');
   }
 
+  public static getCategoryById = (id: FilterQuery<CategoryDocument>) => {
+    return Category.findById(id).populate('products');
+  }
+
   public static insertCategory = async (dataBody: DocumentDefinition<CategoryDocument>) => {
     const category = await Category.find({ name: dataBody.name }).exec();
     if (category.length === 0) {

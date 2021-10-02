@@ -4,9 +4,10 @@ import upload from '../middleware/upload';
 
 const router = Router();
 
-router.get('/getAll', CategoryController.getCategory);
-router.post('/insert', upload.array('image', 5), CategoryController.insertCategory);
-router.put('/update/:id', upload.array('image', 5), CategoryController.updateCategory);
-router.delete('/delete/:id', CategoryController.DeleteCategory);
+router.get('/', CategoryController.getCategory);
+router.get('/:id', CategoryController.getCategoryById);
+router.post('/', upload.array('image', 5), CategoryController.insertCategory);
+router.put('/:id', upload.array('image', 5), CategoryController.updateCategory);
+router.delete('/:id', CategoryController.DeleteCategory);
 
 export default router;
