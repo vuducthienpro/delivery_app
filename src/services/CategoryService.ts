@@ -4,11 +4,14 @@ import winston from '../config/winston';
 
 export class CategoryService {
   public static getAll = () => {
-    return Category.find();
+    return Category.find().populate('products');
   }
 
-  public static insertCategory = (dataBody: DocumentDefinition<CategoryDocument>) => {
-    return Category.create(dataBody);
+  public static insertCategory = async (dataBody: DocumentDefinition<CategoryDocument>) => {
+    const category = await Category.find({ name: dataBody.name }).exec();
+    if (category.length === 0) {
+      return Category.create(dataBody);
+    }
   }
 
   public static updateCategory = async (id: FilterQuery<CategoryDocument>, dataBody: UpdateQuery<CategoryDocument>) => {
@@ -22,7 +25,7 @@ export class CategoryService {
   public static DeleteCategory = async (id: FilterQuery<CategoryDocument>) => {
     const category = await Category.findById(id).exec();
     if (category) {
-      await Category.deleteOne(id);
+      await Category.deleteOne({ id });
       return category;
     }
   }

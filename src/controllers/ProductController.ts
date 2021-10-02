@@ -1,9 +1,11 @@
-import { CategoryService } from '../services/CategoryService';
+import { ProductService } from '../services/ProductService';
 import { message, status } from '../config/constant';
+import winston from '../config/winston';
 
-export class CategoryController {
+export class ProductController {
   public static getCategory = async (req, res, next) => {
-    const data = await CategoryService.getAll();
+    const query = req.query;
+    const data = await ProductService.getAll(query);
     if (!data) {
       return res.json({
         status: status.NOT_FOUND,
@@ -15,15 +17,16 @@ export class CategoryController {
     });
   }
 
-  public static insertCategory = async (req, res, next) => {
+  public static insertProduct = async (req, res, next) => {
     const dataBody = req.body;
     if (req.files) {
+      winston.info(req.files);
       dataBody.image = [];
-      req.files.forEach(element => {
+      req.files.forEach((element) => {
         dataBody.image.push(element.originalname);
       });
     }
-    const data = await CategoryService.insertCategory(dataBody);
+    const data = await ProductService.insertProduct(dataBody);
     if (!data) {
       return res.json({
         status: status.NOT_FOUND,
@@ -35,7 +38,7 @@ export class CategoryController {
     });
   }
 
-  public static updateCategory = async (req, res, next) => {
+  public static updateProduct = async (req, res, next) => {
     const dataBody = req.body;
     if (req.files) {
       dataBody.image = [];
@@ -43,7 +46,7 @@ export class CategoryController {
         dataBody.image.push(element.originalname);
       });
     }
-    const data = await CategoryService.updateCategory(req.params.id, dataBody);
+    const data = await ProductService.updateProduct(req.params.id, dataBody);
     if (!data) {
       return res.json({
         status: status.NOT_FOUND,
@@ -55,8 +58,8 @@ export class CategoryController {
     });
   }
 
-  public static DeleteCategory = async (req, res, next) => {
-    const data = await CategoryService.DeleteCategory(req.params.id);
+  public static DeleteProduct = async (req, res, next) => {
+    const data = await ProductService.DeleteProduct(req.params.id);
     if (!data) {
       return res.json({
         status: status.NOT_FOUND,

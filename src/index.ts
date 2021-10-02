@@ -14,6 +14,7 @@ import crawlRouter from './routes/crawl';
 import authRouter from './routes/auth';
 import categoryRouter from './routes/category';
 import bannerRouter from './routes/banner';
+import productRouter from './routes/product';
 
 // log
 import winston from './config/winston';
@@ -71,6 +72,7 @@ app.use('/crawl', crawlRouter);
 app.use('/auth', authRouter);
 app.use('/category', categoryRouter);
 app.use('/banner', bannerRouter);
+app.use('/product', productRouter);
 
 app.get('/failed', (req, res) => {
   res.json({

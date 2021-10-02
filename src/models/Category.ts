@@ -1,9 +1,10 @@
 import mongoose, { Schema } from 'mongoose';
 
 export interface CategoryDocument extends mongoose.Document {
-    _id: number;
-    name: string;
-    image: [];
+  _id: number;
+  products: [];
+  name: string;
+  image: [];
 }
 
 const schemaOptions = {
