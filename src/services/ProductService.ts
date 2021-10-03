@@ -34,7 +34,7 @@ export class ProductService {
   public static updateProduct = async (id: FilterQuery<ProductDocument>, dataBody: UpdateQuery<ProductDocument>) => {
     const product = await Product.findById(id).exec();
     if (product) {
-      await Product.updateOne(dataBody);
+      await Product.updateOne({ _id: id }, dataBody);
       return dataBody;
     }
   }
