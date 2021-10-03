@@ -7,17 +7,13 @@ import User from '../models/User';
 import request from 'request-promise';
 import winston from '../config/winston';
 import jwt from 'jsonwebtoken';
+import { HEADER_JWT_ALG } from '../config/constant';
 
 const LineStrategy = passportLine.Strategy;
 const GoogleStrategy = passportGoogle.Strategy;
 
 const router = Router();
 dotenv.config();
-
-// router test auth
-router.get('/', (req, res) => {
-  res.send('<a href="/auth/line">Login Line</a></br><a href="/auth/google">Login Google</a>');
-});
 
 // auth line
 passport.use(
@@ -120,37 +116,40 @@ router.get(
 );
 
 router.get(
-  '/google',
+  '/test/google',
   passport.authenticate('google', {
     scope: ['email', 'profile'],
   }),
 );
 
 router.get(
-  '/google/callback',
+  '/test/google/callback',
   passport.authenticate('google', {
     successRedirect: '/success',
     failureRedirect: '/failed',
   }),
 );
 
-router.post('/test/auth/google', async (req, res) => {
+router.post('/google', async (req, res) => {
   const tokenGoogle = req.body.token;
   const dataGoogle = `https://www.googleapis.com/oauth2/v1/userinfo?access_token=${tokenGoogle}`;
-  const resultGoogle = await request({ method: 'GET', url: dataGoogle });
+  let resultGoogle = await request({ method: 'GET', url: dataGoogle });
   winston.info(resultGoogle);
-  const resultEmail = JSON.parse(resultGoogle);
-  const fillUser = await User.findOne({ email: resultEmail.email });
+  resultGoogle = JSON.parse(resultGoogle);
+  const fillUser = await User.findOne({ social: 'google', social_id: resultGoogle.id });
   let token: string;
   if (fillUser) {
-    token = await jwt.sign({ id: fillUser._id }, 'shhhhh');
+    token = await jwt.sign({ id: fillUser._id }, HEADER_JWT_ALG);
     return res.send(token);
   }
-  const user = await User.create({
-    name: 'thien1234',
-    email: resultEmail.email,
+  const createUser = await User.create({
+    name: resultGoogle.name,
+    email: resultGoogle.email,
+    avatar: resultGoogle.picture,
+    social: 'google',
+    social_id: resultGoogle.id,
   });
-  token = await jwt.sign({ id: user._id }, 'shhhhh');
+  token = await jwt.sign({ id: createUser._id }, HEADER_JWT_ALG);
   return res.send(token);
 });
 

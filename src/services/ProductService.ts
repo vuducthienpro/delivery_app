@@ -5,8 +5,6 @@ import winston from '../config/winston';
 
 export class ProductService {
   public static getAll = (query: FilterQuery<ProductDocument>) => {
-    winston.info('query.category_id');
-    winston.info(query.category_id);
     // let dataQuery = {};
     // if (query.category_id) {
     //   dataQuery.category_id = query.category_id;
@@ -15,6 +13,10 @@ export class ProductService {
     //   category_id: query.category_id ? query.category_id : undefined,
     // };
     return Product.find();
+  }
+
+  public static getProductById = (id: FilterQuery<CategoryDocument>) => {
+    return Product.findById(id);
   }
 
   public static insertProduct = async (dataBody: DocumentDefinition<ProductDocument>) => {
@@ -26,7 +28,6 @@ export class ProductService {
       arr.push(productCreate._id);
       await Category.findOneAndUpdate({ _id: category._id }, { products: arr });
       return productCreate;
-      // return Product.create(dataBody);
     }
   }
 
