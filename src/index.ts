@@ -74,6 +74,13 @@ app.use('/category', categoryRouter);
 app.use('/banner', bannerRouter);
 app.use('/product', productRouter);
 
+app.get('/', (req, res) => {
+  res.json({
+    status: 200,
+    result: 'test',
+  });
+});
+
 app.get('/failed', (req, res) => {
   res.json({
     status: 404,
