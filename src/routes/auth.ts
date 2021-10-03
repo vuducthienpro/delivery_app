@@ -8,6 +8,7 @@ import request from 'request-promise';
 import winston from '../config/winston';
 import jwt from 'jsonwebtoken';
 import { HEADER_JWT_ALG } from '../config/constant';
+import { json } from 'body-parser';
 
 const LineStrategy = passportLine.Strategy;
 const GoogleStrategy = passportGoogle.Strategy;
@@ -131,26 +132,32 @@ router.get(
 );
 
 router.post('/google', async (req, res) => {
-  const tokenGoogle = req.body.token;
-  const dataGoogle = `https://www.googleapis.com/oauth2/v1/userinfo?access_token=${tokenGoogle}`;
-  let resultGoogle = await request({ method: 'GET', url: dataGoogle });
-  winston.info(resultGoogle);
-  resultGoogle = JSON.parse(resultGoogle);
-  const fillUser = await User.findOne({ social: 'google', social_id: resultGoogle.id });
-  let token: string;
-  if (fillUser) {
-    token = await jwt.sign({ id: fillUser._id }, HEADER_JWT_ALG);
+  try {
+    const tokenGoogle = req.body.token;
+    const dataGoogle = `https://www.googleapis.com/oauth2/v1/userinfo?access_token=${tokenGoogle}`;
+    let resultGoogle = await request({ method: 'GET', url: dataGoogle });
+    winston.info(resultGoogle);
+    resultGoogle = JSON.parse(resultGoogle);
+    const fillUser = await User.findOne({ social: 'google', social_id: resultGoogle.id });
+    let token: string;
+    if (fillUser) {
+      token = await jwt.sign({ id: fillUser._id }, HEADER_JWT_ALG);
+      return res.send(token);
+    }
+    const createUser = await User.create({
+      name: resultGoogle.name,
+      email: resultGoogle.email,
+      avatar: resultGoogle.picture,
+      social: 'google',
+      social_id: resultGoogle.id,
+    });
+    token = await jwt.sign({ id: createUser._id }, HEADER_JWT_ALG);
     return res.send(token);
+  } catch (error) {
+    return res.json({
+      error: JSON.parse(error.error),
+    });
   }
-  const createUser = await User.create({
-    name: resultGoogle.name,
-    email: resultGoogle.email,
-    avatar: resultGoogle.picture,
-    social: 'google',
-    social_id: resultGoogle.id,
-  });
-  token = await jwt.sign({ id: createUser._id }, HEADER_JWT_ALG);
-  return res.send(token);
 });
 
 export default router;
