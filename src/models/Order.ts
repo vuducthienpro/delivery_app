@@ -5,8 +5,7 @@ const schemaOptions = {
 };
 
 const OrderSchema = new mongoose.Schema({
-    user: [{ type: Schema.Types.ObjectId, ref: 'User'}],
-    customer: [{ type: Schema.Types.ObjectId, ref: 'Customer'}],
+    customer_id: {type: String, required: true},
     products: [{ type: Schema.Types.ObjectId, ref: 'Product'}],
     status: {type: Number, required: true}, // 0: Processing - 1: delivering - 2: Delivered - 3: Canceled
     quantity: {type: Number, required: true},

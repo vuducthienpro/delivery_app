@@ -3,7 +3,6 @@ import { message, status } from '../config/constant';
 import express from 'express';
 import bodyParser from 'body-parser';
 import Banner from '../models/Banner';
-import winston from '../config/winston';
 
 const app = express();
 app.use(bodyParser.json());
@@ -23,7 +22,7 @@ export class BannerController {
         if (!banner) {
             return res.json({
                 status: status.NOT_FOUND,
-                message: message.NOT_FOUND_BANNER,
+                message: message.NOT_FOUND,
             });
         } else {
             return res.json({
@@ -60,7 +59,7 @@ export class BannerController {
         if (!dataBanner) {
             return res.json({
                 status: status.NOT_FOUND,
-                message: message.NOT_FOUND_BANNER,
+                message: message.NOT_FOUND,
             });
         } else {
             let data:any;
@@ -90,7 +89,7 @@ export class BannerController {
         if (!dataBanner) {
             return res.json({
                 status: status.NOT_FOUND,
-                message: message.NOT_FOUND_BANNER,
+                message: message.NOT_FOUND,
             });
         } else {
             const banner = await BannerService.deleteBanner({ dataBanner });
