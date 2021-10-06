@@ -21,7 +21,7 @@ export class CategoryService {
   public static updateCategory = async (id: FilterQuery<CategoryDocument>, dataBody: UpdateQuery<CategoryDocument>) => {
     const category = await Category.findById(id).exec();
     if (category) {
-      await Category.updateOne(dataBody);
+      await Category.updateOne({ _id: id }, dataBody);
       return dataBody;
     }
   }
@@ -29,7 +29,7 @@ export class CategoryService {
   public static DeleteCategory = async (id: FilterQuery<CategoryDocument>) => {
     const category = await Category.findById(id).exec();
     if (category) {
-      await Category.deleteOne({ id });
+      await Category.deleteOne({ _id: id });
       return category;
     }
   }

@@ -33,12 +33,16 @@ export class CategoryController {
 
   public static insertCategory = async (req, res) => {
     const dataBody = req.body;
-    if (req.files) {
-      dataBody.image = [];
-      req.files.forEach((element) => {
-        dataBody.image.push(element.originalname);
+    if (req.files.length === 0) {
+      return res.json({
+        status: status.BAD_REQUEST,
+        message: message.IMAGE_NOT_FILES,
       });
     }
+    dataBody.image = [];
+    req.files.forEach((element) => {
+      dataBody.image.push(element.originalname);
+    });
     const response = await CategoryService.insertCategory(dataBody);
     if (!response) {
       return res.json({
@@ -54,7 +58,7 @@ export class CategoryController {
 
   public static updateCategory = async (req, res) => {
     const dataBody = req.body;
-    if (req.files) {
+    if (req.files.length !== 0) {
       dataBody.image = [];
       req.files.forEach((element) => {
         dataBody.image.push(element.originalname);

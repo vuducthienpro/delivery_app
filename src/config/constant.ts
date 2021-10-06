@@ -12,6 +12,7 @@ export const message = {
   CREATED_PRODUCT_FALSE: 'Product creation failed',
   UPDATE_PRODUCT_FALSE: 'Product update fail',
   DELETE_PRODUCT_FALSE: 'Product delete fail',
+  IMAGE_NOT_FILES: 'No image file',
 };
 
 export const status = {

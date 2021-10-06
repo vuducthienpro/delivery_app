@@ -5,13 +5,6 @@ import winston from '../config/winston';
 
 export class ProductService {
   public static getAll = (query: FilterQuery<ProductDocument>) => {
-    // let dataQuery = {};
-    // if (query.category_id) {
-    //   dataQuery.category_id = query.category_id;
-    // }
-    // const dataQuery = {
-    //   category_id: query.category_id ? query.category_id : undefined,
-    // };
     return Product.find();
   }
 
