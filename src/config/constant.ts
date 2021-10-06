@@ -15,6 +15,7 @@ export const message = {
   CREATED_PRODUCT_FALSE: 'Product creation failed',
   UPDATE_PRODUCT_FALSE: 'Product update fail',
   DELETE_PRODUCT_FALSE: 'Product delete fail',
+  IMAGE_NOT_FILES: 'No image file',
   //customer
   CREATE_CUSTOMER_SUCCESS: 'Successful Customer creation',
   CREATED_CUSTOMER_FAILS: 'Customer creation failed',
