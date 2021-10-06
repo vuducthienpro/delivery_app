@@ -1,18 +1,27 @@
 export const message = {
+  //global
+  NOT_FOUND: 'There are no records',
+  //banner
   CREATE_BANNER_SUCCESS: 'Successful banner creation',
-  NOT_FOUND_BANNER: 'There are no records',
   CREATED_BANNER_FAILS: 'Banner creation failed',
   UPDATE_BANNER_FAILS: 'Banner update fail',
   DELETE_BANNER_FAILS: 'Banner delete fail',
   DELETE_BANNER_SUCCESS: 'Banner deleted success',
-  NOT_FOUND: 'There are no records',
+  //category
   CREATED_CATEGORY_FALSE: 'Category creation failed',
   UPDATE_CATEGORY_FALSE: 'Category update fail',
   DELETE_CATEGORY_FALSE: 'Category delete fail',
+  //product
   CREATED_PRODUCT_FALSE: 'Product creation failed',
   UPDATE_PRODUCT_FALSE: 'Product update fail',
   DELETE_PRODUCT_FALSE: 'Product delete fail',
   IMAGE_NOT_FILES: 'No image file',
+  //customer
+  CREATE_CUSTOMER_SUCCESS: 'Successful Customer creation',
+  CREATED_CUSTOMER_FAILS: 'Customer creation failed',
+  UPDATE_CUSTOMER_FAILS: 'Customer update fail',
+  DELETE_CUSTOMER_FAILS: 'Customer delete fail',
+  DELETE_CUSTOMER_SUCCESS: 'Customer deleted success',
 };
 
 export const status = {

@@ -6,8 +6,6 @@ const schemaOptions = {
 
 const UserSchema = new mongoose.Schema(
   {
-    customer: [{ type: Schema.Types.ObjectId, ref: 'Customer' }],
-    orders: [{ type: Schema.Types.ObjectId, ref: 'Order' }],
     name: { type: String, required: true },
     email: { type: String, unique: true },
     avatar: { type: String, default: 'null' },

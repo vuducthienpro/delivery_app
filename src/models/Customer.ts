@@ -1,11 +1,18 @@
 import mongoose, { Schema } from 'mongoose';
 
+export interface CustomerDocument extends mongoose.Document {
+    orders: [];
+    name: string;
+    email: string;
+    phone: string;
+    address: string;
+}
+
 const schemaOptions = {
     timestamps: { createdAt: 'created_at', updatedAt: 'updated_at' },
 };
 
 const CustomerSchema = new mongoose.Schema({
-    user: [{ type: Schema.Types.ObjectId, ref: 'User'}],
     orders: [{ type: Schema.Types.ObjectId, ref: 'Order'}],
     name: {type: String, required: true},
     email: {type: String, required: true},
