@@ -117,21 +117,21 @@ router.get(
 );
 
 router.get(
-  '/test/google',
+  '/google',
   passport.authenticate('google', {
     scope: ['email', 'profile'],
   }),
 );
 
 router.get(
-  '/test/google/callback',
+  '/google/callback',
   passport.authenticate('google', {
     successRedirect: '/success',
     failureRedirect: '/failed',
   }),
 );
 
-router.post('/google', async (req, res) => {
+router.post('/login-google', async (req, res) => {
   try {
     const tokenGoogle = req.body.token;
     const dataGoogle = `https://www.googleapis.com/oauth2/v1/userinfo?access_token=${tokenGoogle}`;
@@ -150,6 +150,36 @@ router.post('/google', async (req, res) => {
       avatar: resultGoogle.picture,
       social: 'google',
       social_id: resultGoogle.id,
+    });
+    token = await jwt.sign({ id: createUser._id }, HEADER_JWT_ALG);
+    return res.send(token);
+  } catch (error) {
+    return res.json({
+      error: JSON.parse(error.error),
+    });
+  }
+});
+
+
+router.post('/login-line', async (req, res) => {
+  try {
+    const tokenLine = req.body.token;
+    const dataLine = `https://api.line.me/oauth2/v2.1/verify`;
+    let resultLine = await request({ method: 'POST', url: dataLine, body: { id_token: tokenLine } });
+    // winston.info(resultGoogle);
+    resultLine = JSON.parse(resultLine);
+    const fillUser = await User.findOne({ social: 'google', social_id: resultLine.id });
+    let token: string;
+    if (fillUser) {
+      token = await jwt.sign({ id: fillUser._id }, HEADER_JWT_ALG);
+      return res.send(token);
+    }
+    const createUser = await User.create({
+      name: resultLine.name,
+      email: resultLine.email,
+      avatar: resultLine.picture,
+      social: 'line',
+      social_id: resultLine.id,
     });
     token = await jwt.sign({ id: createUser._id }, HEADER_JWT_ALG);
     return res.send(token);

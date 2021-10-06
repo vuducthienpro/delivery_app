@@ -5,15 +5,31 @@ import winston from '../config/winston';
 export class ProductController {
   public static getCategory = async (req, res, next) => {
     const query = req.query;
-    const data = await ProductService.getAll(query);
-    if (!data) {
+    const response = await ProductService.getAll(query);
+    if (!response) {
       return res.json({
         status: status.NOT_FOUND,
         message: message.NOT_FOUND,
       });
     }
     return res.json({
-      data,
+      status: status.OK,
+      data: response,
+    });
+  }
+
+  public static async getProductById(req, res) {
+    const id = req.params.id;
+    const response = await ProductService.getProductById(id);
+    if (!response) {
+      return res.json({
+        status: status.NOT_FOUND,
+        message: message.NOT_FOUND,
+      });
+    }
+    return res.json({
+      status: status.OK,
+      data: response,
     });
   }
 
@@ -32,12 +48,13 @@ export class ProductController {
     const response = await ProductService.insertProduct(dataBody);
     if (!response) {
       return res.json({
-        status: status.NOT_FOUND,
-        message: message.NOT_FOUND,
+        status: status.BAD_REQUEST,
+        message: message.CREATED_PRODUCT_FALSE,
       });
     }
     return res.json({
-      data,
+      status: status.OK,
+      data: response,
     });
   }
 
@@ -49,28 +66,30 @@ export class ProductController {
         dataBody.image.push(element.originalname);
       });
     }
-    const data = await ProductService.updateProduct(req.params.id, dataBody);
-    if (!data) {
+    const response = await ProductService.updateProduct(req.params.id, dataBody);
+    if (!response) {
       return res.json({
-        status: status.NOT_FOUND,
-        message: message.NOT_FOUND,
+        status: status.BAD_REQUEST,
+        message: message.UPDATE_PRODUCT_FALSE,
       });
     }
     return res.json({
-      data,
+      status: status.OK,
+      data: response,
     });
   }
 
   public static DeleteProduct = async (req, res, next) => {
-    const data = await ProductService.DeleteProduct(req.params.id);
-    if (!data) {
+    const response = await ProductService.DeleteProduct(req.params.id);
+    if (!response) {
       return res.json({
-        status: status.NOT_FOUND,
-        message: message.NOT_FOUND,
+        status: status.BAD_REQUEST,
+        message: message.DELETE_PRODUCT_FALSE,
       });
     }
     return res.json({
-      data,
+      status: status.OK,
+      data: response,
     });
   }
 }
