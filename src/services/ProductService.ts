@@ -6,11 +6,11 @@ import winston from '../config/winston';
 export class ProductService {
   public static getAll = (query: FilterQuery<ProductDocument>) => {
     return Product.find();
-  }
+  };
 
   public static getProductById = (id: FilterQuery<CategoryDocument>) => {
     return Product.findById(id);
-  }
+  };
 
   public static insertProduct = async (dataBody: DocumentDefinition<ProductDocument>) => {
     const product = await Product.find({ name: dataBody.name }).exec();
@@ -22,7 +22,7 @@ export class ProductService {
       await Category.findOneAndUpdate({ _id: category._id }, { products: arr });
       return productCreate;
     }
-  }
+  };
 
   public static updateProduct = async (id: FilterQuery<ProductDocument>, dataBody: UpdateQuery<ProductDocument>) => {
     const product = await Product.findById(id).exec();
@@ -30,7 +30,7 @@ export class ProductService {
       await Product.updateOne({ _id: id }, dataBody);
       return dataBody;
     }
-  }
+  };
 
   public static DeleteProduct = async (id: FilterQuery<ProductDocument>) => {
     const product = await Product.findById(id).exec();
@@ -38,5 +38,5 @@ export class ProductService {
       await Product.deleteOne({ _id: id });
       return product;
     }
-  }
+  };
 }
