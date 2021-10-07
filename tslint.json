@@ -23,7 +23,7 @@
       "single",
       "jsx-double"
     ],
-    "semicolon": [true, "always"]
+    "semicolon": ["error", "never"]
   },
   "rulesDirectory": []
 }
