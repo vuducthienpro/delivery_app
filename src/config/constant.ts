@@ -17,6 +17,9 @@ export const message = {
   UPDATE_CUSTOMER_FAILS: 'Customer update fail',
   DELETE_CUSTOMER_FAILS: 'Customer delete fail',
   DELETE_CUSTOMER_SUCCESS: 'Customer deleted success',
+  CREATED_ORDER_FALSE: 'Order creation failed',
+  UPDATE_ORDER_FALSE: 'Product update fail',
+  DELETE_ORDER_FALSE: 'Product delete fail',
 };
 
 export const status = {
