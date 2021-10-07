@@ -1,24 +1,24 @@
-import Customer, { CustomerDocument } from '../models/Customer';
+import Order, { OrderDocument } from '../models/Order';
 import { FilterQuery, DocumentDefinition, UpdateQuery, QueryOptions } from 'mongoose';
 
-export class CustomerService {
-  public static getAllCutomer = () => {
-    return Customer.find();
+export class OrderService {
+  public static getAllOrder = () => {
+    return Order.find();
   }
 
-  public static getCutomer = (query: FilterQuery<CustomerDocument>) => {
-    return Customer.findById(query);
+  public static getOrder = (query: FilterQuery<OrderDocument>) => {
+    return Order.findById(query);
   }
 
-  public static createCutomer = (input: DocumentDefinition<CustomerDocument>) => {
-    return Customer.create(input);
+  public static createOrder = async (input: DocumentDefinition<OrderDocument>) => {
+    return Order.create(input);
   }
 
-  public static findAndUpdateCutomer = (query: FilterQuery<CustomerDocument>, update: UpdateQuery<CustomerDocument>, options: QueryOptions) => {
-    return Customer.findOneAndUpdate(query, update, options);
+  public static findAndUpdateOrder = (query: FilterQuery<OrderDocument>, update: UpdateQuery<OrderDocument>, options: QueryOptions) => {
+    return Order.findOneAndUpdate(query, update, options);
   }
 
-  public static deleteCutomer = (query: FilterQuery<CustomerDocument>) => {
-    return Customer.deleteOne(query);
+  public static deleteOrder = (query: FilterQuery<OrderDocument>) => {
+    return Order.deleteOne(query);
   }
 }

@@ -16,6 +16,7 @@ import categoryRouter from './routes/category';
 import bannerRouter from './routes/banner';
 import productRouter from './routes/product';
 import customerRouter from './routes/customer';
+import orderRouter from './routes/order';
 
 // log
 import winston from './config/winston';
@@ -75,6 +76,7 @@ app.use('/category', categoryRouter);
 app.use('/banner', bannerRouter);
 app.use('/product', productRouter);
 app.use('/customer', customerRouter);
+app.use('/order', orderRouter);
 
 app.get('/', (req, res) => {
   res.json({
