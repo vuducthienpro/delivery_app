@@ -2,7 +2,7 @@ Arguments:
   /home/thientl/.nvm/versions/node/v14.15.4/bin/node /usr/local/bin/yarn lint-debug
 
 PATH: 
-  /home/thientl/Desktop/folder/delivery_app/node_modules/.bin:/tmp/yarn--1633588967397-0.39120719582093466:/home/thientl/Desktop/folder/delivery_app/node_modules/.bin:/home/thientl/.config/yarn/link/node_modules/.bin:/home/thientl/.yarn/bin:/home/thientl/.nvm/versions/node/v14.15.4/libexec/lib/node_modules/npm/bin/node-gyp-bin:/home/thientl/.nvm/versions/node/v14.15.4/lib/node_modules/npm/bin/node-gyp-bin:/home/thientl/.nvm/versions/node/v14.15.4/bin/node_modules/npm/bin/node-gyp-bin:/home/thientl/.nvm/versions/node/v14.15.4/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin
+  /home/thientl/Desktop/folder/delivery_app/node_modules/.bin:/tmp/yarn--1633623380061-0.19332352022235533:/home/thientl/Desktop/folder/delivery_app/node_modules/.bin:/home/thientl/.config/yarn/link/node_modules/.bin:/home/thientl/.yarn/bin:/home/thientl/.nvm/versions/node/v14.15.4/libexec/lib/node_modules/npm/bin/node-gyp-bin:/home/thientl/.nvm/versions/node/v14.15.4/lib/node_modules/npm/bin/node-gyp-bin:/home/thientl/.nvm/versions/node/v14.15.4/bin/node_modules/npm/bin/node-gyp-bin:/home/thientl/.nvm/versions/node/v14.15.4/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin
 
 Yarn version: 
   1.22.11
