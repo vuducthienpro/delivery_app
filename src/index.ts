@@ -17,6 +17,7 @@ import bannerRouter from './routes/banner';
 import productRouter from './routes/product';
 import customerRouter from './routes/customer';
 import orderRouter from './routes/order';
+import adminRouter from './routes/admin';
 
 // log
 import winston from './config/winston';
@@ -77,6 +78,7 @@ app.use('/banner', bannerRouter);
 app.use('/product', productRouter);
 app.use('/customer', customerRouter);
 app.use('/order', orderRouter);
+app.use('/admin', adminRouter);
 
 app.get('/', (req, res) => {
   res.json({
