@@ -1,10 +1,8 @@
 import { AdminService } from '../services/AdminService';
-import { message, status } from '../config/constant';
+import { HEADER_JWT_ALG, message, status } from '../config/constant';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import winston from '../config/winston';
-
-const JWT_KEY = 'adwdadnwundkamdiwdkamdiw';
 
 export class AdminController {
   public static login = async (req, res) => {
@@ -17,7 +15,7 @@ export class AdminController {
           {
             id: admin.id,
           },
-          JWT_KEY,
+          HEADER_JWT_ALG,
           { expiresIn: '7d' },
         );
         await AdminService.findAndUpdateAdmin(username, { token }, { new: true });
@@ -83,7 +81,7 @@ export class AdminController {
         {
           id: newAdmin.id,
         },
-        JWT_KEY,
+        HEADER_JWT_ALG,
         { expiresIn: '7d' },
       );
       await AdminService.findAndUpdateAdmin({ username: newAdmin.username }, { token }, { new: true });
@@ -116,7 +114,7 @@ export class AdminController {
         {
           id,
         },
-        JWT_KEY,
+        HEADER_JWT_ALG,
         { expiresIn: '7d' },
       );
       const admin = await AdminService.findAndUpdateAdmin(id, { password, token }, { new: true });

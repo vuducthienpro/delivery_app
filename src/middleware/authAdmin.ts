@@ -1,17 +1,16 @@
 import jwt from 'jsonwebtoken';
-import User from '../models/User';
+import Admin from '../models/Admin';
 import { HEADER_JWT_ALG, message } from '../config/constant';
 import winston from '../config/winston';
 
-
-const authUser = async (req, res, next) => {
+const authAdmin = async (req, res, next) => {
   try {
     let token = req.headers.authorization;
     if (token) {
       token = token.split(' ')[1];
       const verifyToken: any = jwt.verify(token, HEADER_JWT_ALG);
       const id = verifyToken.id;
-      const user = await User.findById(id).exec();
+      const user = await Admin.findById(id).exec();
       if (user) {
         req.user = user;
         next();
@@ -36,4 +35,4 @@ const authUser = async (req, res, next) => {
   }
 };
 
-export default authUser;
+export default authAdmin;
