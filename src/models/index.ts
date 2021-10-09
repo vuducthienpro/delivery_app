@@ -4,6 +4,7 @@ import Order from './Order';
 import Customer from './Customer';
 import Product from './Product';
 import User from './User';
+import Admin from './Admin';
 
 const Models = {
   Banner,
@@ -12,6 +13,7 @@ const Models = {
   Customer,
   Product,
   User,
+  Admin,
 };
 
 export default Models;
