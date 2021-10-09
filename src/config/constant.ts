@@ -20,6 +20,7 @@ export const message = {
   CREATED_ORDER_FALSE: 'Order creation failed',
   UPDATE_ORDER_FALSE: 'Product update fail',
   DELETE_ORDER_FALSE: 'Product delete fail',
+  ERROR_TOKEN: 'Token does not null or not exist',
 };
 
 export const status = {
