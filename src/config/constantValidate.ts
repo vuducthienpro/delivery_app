@@ -19,4 +19,8 @@ export const VALIDATE = {
   PHONE_INVALID: 'Phone is not in the correct format',
   ADDRESS_NOT_EMPTY: 'Address is not exist',
   ADDRESS_INVALID: 'The address is not in the correct format',
+  USERNAME_EMPTY: 'Username cannot be left blank',
+  USERNAME_INVALID: 'Malformed username',
+  PASSWORD_EMPTY: 'Password can not be blank',
+  PASSWORD_INVALID: 'Incorrect password format',
 };

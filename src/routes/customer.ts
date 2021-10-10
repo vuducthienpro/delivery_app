@@ -6,23 +6,26 @@ import {
   insertCustomerSchema,
   updateCustomerSchema,
   deleteCustomerByIdSchema,
-} from '../validate/customer';
+} from '../validation/customer';
+import authAdminAndUser from '../middleware/authAdminAndUser';
 
 const router = Router();
 
-router.get('/', CustomerController.getAllCutomer);
+router.get('/', authAdminAndUser, CustomerController.getAllCutomer);
 router.get(
   '/:id',
   getCustomerByIdSchema,
   validateRequestSchema,
+  authAdminAndUser,
   CustomerController.getCustomerById,
 );
-router.post('/', insertCustomerSchema, validateRequestSchema, CustomerController.createCutomer);
-router.put('/:id', updateCustomerSchema, validateRequestSchema, CustomerController.updateCustomer);
+router.post('/', insertCustomerSchema, validateRequestSchema, authAdminAndUser, CustomerController.createCutomer);
+router.put('/:id', updateCustomerSchema, validateRequestSchema, authAdminAndUser, CustomerController.updateCustomer);
 router.delete(
   '/:id',
   deleteCustomerByIdSchema,
   validateRequestSchema,
+  authAdminAndUser,
   CustomerController.destroyCustomer,
 );
 
