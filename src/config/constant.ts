@@ -20,6 +20,12 @@ export const message = {
   CREATED_ORDER_FALSE: 'Order creation failed',
   UPDATE_ORDER_FALSE: 'Product update fail',
   DELETE_ORDER_FALSE: 'Product delete fail',
+  ERROR_TOKEN: 'Token does not null or not exist',
+  REGISTER_FALSE: 'Register failed,account already exists',
+  LOGIN_FALSE: 'Login failed, invalid username or password',
+  DELETE_FALSE: 'Account delete fail',
+  LOGOUT_SUCCESS: 'Logout success',
+  LOGOUT_FALSE: 'Logout failed',
 };
 
 export const status = {

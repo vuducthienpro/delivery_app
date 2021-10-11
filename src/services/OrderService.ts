@@ -6,19 +6,20 @@ export class OrderService {
     return Order.find().populate('products');
   }
 
+
   public static getOrder = (query: FilterQuery<OrderDocument>) => {
     return Order.findById(query);
-  }
+  };
 
   public static createOrder = async (input: DocumentDefinition<OrderDocument>) => {
     return Order.create(input);
-  }
+  };
 
   public static findAndUpdateOrder = (query: FilterQuery<OrderDocument>, update: UpdateQuery<OrderDocument>, options: QueryOptions) => {
     return Order.findOneAndUpdate(query, update, options);
-  }
+  };
 
   public static deleteOrder = (query: FilterQuery<OrderDocument>) => {
     return Order.deleteOne(query);
-  }
+  };
 }
