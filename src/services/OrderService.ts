@@ -3,7 +3,7 @@ import { FilterQuery, DocumentDefinition, UpdateQuery, QueryOptions } from 'mong
 
 export class OrderService {
   public static getAllOrder = () => {
-    return Order.find();
+    return Order.find().populate('products');
   }
 
   public static getOrder = (query: FilterQuery<OrderDocument>) => {
