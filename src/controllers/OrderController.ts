@@ -14,7 +14,7 @@ export class OrderController {
       status: status.OK,
       data: orders,
     });
-  }
+  };
 
   public static async getOrderById(req, res) {
     const id = req.params.id;
@@ -32,8 +32,9 @@ export class OrderController {
   }
 
   public static createOrder = async (req, res) => {
-    const request = req.body;
-    const newOrder = await OrderService.createOrder(request);
+    const dataBody = req.body;
+    dataBody.user_id = req.user._id;
+    const newOrder = await OrderService.createOrder(dataBody);
     if (!newOrder) {
       return res.json({
         status: status.BAD_REQUEST,
@@ -44,7 +45,7 @@ export class OrderController {
       status: status.OK,
       data: newOrder,
     });
-  }
+  };
 
   public static updateOrder = async (req, res, next) => {
     const id = req.params.id;
@@ -69,7 +70,7 @@ export class OrderController {
             });
         }
     }
-  }
+  };
 
   public static deleteOrder = async (req, res, next) => {
     const order = await OrderService.deleteOrder(req.params.id);
@@ -83,5 +84,5 @@ export class OrderController {
       status: status.OK,
       data: order,
     });
-  }
+  };
 }

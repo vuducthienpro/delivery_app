@@ -8,12 +8,14 @@ import {
   updateOrderSchema,
   deleteOrderByIdSchema,
 } from '../validation/order';
+import authUser from '../middleware/authUser';
+
 
 const router = Router();
 
 router.get('/', authAdminAndUser, OrderController.getAllOrder);
 router.get('/:id', getOrderByIdSchema, validateRequestSchema, authAdminAndUser, OrderController.getOrderById);
-router.post('/', insertOrderSchema, validateRequestSchema, authAdminAndUser,  OrderController.createOrder);
+router.post('/', insertOrderSchema, validateRequestSchema, authUser, OrderController.createOrder);
 router.put('/:id', updateOrderSchema, validateRequestSchema, authAdminAndUser, OrderController.updateOrder);
 router.delete('/:id', deleteOrderByIdSchema, validateRequestSchema, authAdminAndUser, OrderController.deleteOrder);
 
