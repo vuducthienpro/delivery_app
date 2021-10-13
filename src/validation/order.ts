@@ -10,16 +10,11 @@ const getOrderByIdSchema = [
 ];
 
 const insertOrderSchema = [
-  check('customer_id')
+  check('name')
     .notEmpty()
     .withMessage(VALIDATE.CUSTOMER_ID_EMPTY)
     .isString()
     .withMessage(VALIDATE.CUSTOMER_ID_INVALID),
-  check('status')
-    .notEmpty()
-    .withMessage(VALIDATE.STATUS_EMPTY)
-    .isInt()
-    .withMessage(VALIDATE.STATUS_INVALID),
   check('quantity')
     .notEmpty()
     .withMessage(VALIDATE.QUANTITY_EMPTY)
@@ -30,6 +25,16 @@ const insertOrderSchema = [
     .withMessage(VALIDATE.TOTAL_PRICE_EMPTY)
     .isFloat()
     .withMessage(VALIDATE.TOTAL_PRICE_INVALID),
+  check('phone')
+    .notEmpty()
+    .withMessage(VALIDATE.STATUS_EMPTY)
+    .isString()
+    .withMessage(VALIDATE.STATUS_INVALID),
+  check('address')
+    .notEmpty()
+    .withMessage(VALIDATE.STATUS_EMPTY)
+    .isString()
+    .withMessage(VALIDATE.STATUS_INVALID),
   check('payment_method')
     .notEmpty()
     .withMessage(VALIDATE.PAYMENT_METHOD_EMPTY)
@@ -40,10 +45,7 @@ const insertOrderSchema = [
     .withMessage(VALIDATE.TRANSPORT_METHOD_EMPTY)
     .isInt()
     .withMessage(VALIDATE.TRANSPORT_METHOD_INVALID),
-  check('delivery_date')
-    .isISO8601()
-    .toDate()
-    .withMessage(VALIDATE.DELIVERY_DATE_INVALID),
+  check('delivery_date').notEmpty().withMessage(VALIDATE.DELIVERY_DATE_INVALID),
 ];
 
 const updateOrderSchema = [
