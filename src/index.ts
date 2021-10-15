@@ -7,6 +7,7 @@ import passport from 'passport';
 import mongoose from 'mongoose';
 import bodyParser from 'body-parser';
 import config from './config/options';
+import cors from 'cors';
 
 // routers
 import runningRouter from './routes/running';
@@ -32,6 +33,10 @@ const app = express();
 
 // parse various different custom JSON types as JSON
 app.use(bodyParser.json());
+app.use(cors());
+
+// upload image
+app.use('/images', express.static(path.join(__dirname, 'uploads')));
 
 // // parse some custom thing into a Buffer
 // app.use(bodyParser.raw({ type: 'application/vnd.custom-type' }));
