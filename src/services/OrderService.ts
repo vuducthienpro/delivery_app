@@ -6,8 +6,7 @@ import winston from '../config/winston';
 export class OrderService {
   public static getAllOrder = () => {
     return Order.find().populate('products');
-  }
-
+  };
 
   public static getOrder = (query: FilterQuery<OrderDocument>) => {
     return Order.findById(query);
@@ -15,6 +14,7 @@ export class OrderService {
 
   public static createOrder = async (input: DocumentDefinition<OrderDocument>) => {
     const product = await Product.findOne({ name: input.name }).exec();
+    if (!product) throw 'product not exit';
     const oderCreate = await Order.create(input);
     const arrProduct = oderCreate.products;
     arrProduct.push(product._id);
