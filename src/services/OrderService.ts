@@ -5,7 +5,7 @@ import winston from '../config/winston';
 
 export class OrderService {
   public static getAllOrder = () => {
-    return Order.find().populate('products');
+    return Order.find().populate('products').populate('users');
   };
 
   public static getOrder = (query: FilterQuery<OrderDocument>) => {
