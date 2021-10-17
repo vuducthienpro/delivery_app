@@ -1,6 +1,8 @@
 import path from 'path';
 import multer from 'multer';
 
+const typeImage = ['image/png', 'image/jpg', 'image/jpeg', 'image/jfif'];
+
 const storate = multer.diskStorage({
     destination: (req, file, cb) => {
         cb(null, 'src/uploads/');
@@ -12,16 +14,19 @@ const storate = multer.diskStorage({
     },
 });
 
+
+        //   file.mimetype === 'image/png' ||
+        //     file.mimetype === 'image/jpg' ||
+        //     file.mimetype === 'image/jpeg' ||
+        //     file.mimetype === 'image/jfif';
+
 const upload = multer ({
     storage: storate,
     fileFilter: (req, file, callback) => {
-        if (
-            file.mimetype === 'image/png' ||
-            file.mimetype === 'image/jpg'
-        ) {
-            callback(null, true);
+        if (typeImage.indexOf(file.mimetype) >= 0) {
+          callback(null, true);
         } else {
-            callback(null, false);
+          callback(null, false);
         }
     },
     limits: {

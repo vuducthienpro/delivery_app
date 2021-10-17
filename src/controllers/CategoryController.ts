@@ -1,5 +1,6 @@
 import { CategoryService } from '../services/CategoryService';
 import { message, status } from '../config/constant';
+import winston from 'winston';
 
 export class CategoryController {
   public static getCategory = async (req, res) => {
@@ -14,7 +15,7 @@ export class CategoryController {
       status: status.OK,
       data: response,
     });
-  }
+  };
 
   public static async getCategoryById(req, res) {
     const id = req.params.id;
@@ -33,15 +34,9 @@ export class CategoryController {
 
   public static insertCategory = async (req, res) => {
     const dataBody = req.body;
-    if (req.files.length === 0) {
-      return res.json({
-        status: status.BAD_REQUEST,
-        message: message.IMAGE_NOT_FILES,
-      });
-    }
     dataBody.image = [];
     req.files.forEach((element) => {
-      dataBody.image.push(element.originalname);
+      dataBody.image.push(element.filename);
     });
     const response = await CategoryService.insertCategory(dataBody);
     if (!response) {
@@ -54,14 +49,14 @@ export class CategoryController {
       status: status.OK,
       data: response,
     });
-  }
+  };
 
   public static updateCategory = async (req, res) => {
     const dataBody = req.body;
-    if (req.files.length !== 0) {
+    if (req.files && req.files.length !== 0) {
       dataBody.image = [];
       req.files.forEach((element) => {
-        dataBody.image.push(element.originalname);
+        dataBody.image.push(element.filename);
       });
     }
     const response = await CategoryService.updateCategory(req.params.id, dataBody);
@@ -75,7 +70,7 @@ export class CategoryController {
       status: status.OK,
       data: response,
     });
-  }
+  };
 
   public static DeleteCategory = async (req, res) => {
     const response = await CategoryService.DeleteCategory(req.params.id);
@@ -89,5 +84,5 @@ export class CategoryController {
       status: status.OK,
       data: response,
     });
-  }
+  };
 }
