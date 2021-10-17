@@ -5,7 +5,7 @@ export interface ProductDocument extends mongoose.Document {
   category_id: string;
   order: number;
   name: string;
-  image: [];
+  image: any;
   price: number;
   status: number;
   quantity: number;
@@ -20,8 +20,8 @@ const ProductSchema = new mongoose.Schema(
   {
     // category: [{ type: Schema.Types.ObjectId, ref: 'Category' }],
     category_id: { type: String, required: true },
-    order_id: { type: String, required: true },
-    name: { type: String, required: true },
+    order_id: { type: String },
+    name: { type: String, required: true, unique: true },
     image: { type: Array, required: true },
     price: { type: Number, required: true },
     status: { type: Number, required: true, default: 1 }, // 0: Out of stock - 1: Stocking

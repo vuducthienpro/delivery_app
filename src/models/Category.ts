@@ -4,7 +4,7 @@ export interface CategoryDocument extends mongoose.Document {
   _id: number;
   products: [];
   name: string;
-  image: [];
+  image: any;
 }
 
 const schemaOptions = {
@@ -14,7 +14,7 @@ const schemaOptions = {
 const CategorySchema = new mongoose.Schema(
   {
     products: [{ type: Schema.Types.ObjectId, ref: 'Product' }],
-    name: { type: String, required: true },
+    name: { type: String, required: true, unique: true },
     image: { type: Array, required: true },
   },
   schemaOptions,
