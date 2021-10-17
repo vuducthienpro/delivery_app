@@ -5,7 +5,7 @@ import winston from '../config/winston';
 
 export class ProductService {
   public static getAll = (query: FilterQuery<ProductDocument>) => {
-    return Product.find();
+    return Product.find(query);
   };
 
   public static getProductById = (id: FilterQuery<CategoryDocument>) => {
