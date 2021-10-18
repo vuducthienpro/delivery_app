@@ -1,9 +1,11 @@
 import { CategoryService } from '../services/CategoryService';
 import { message, status } from '../config/constant';
+import winston from '../config/winston';
 
 export class CategoryController {
   public static getCategory = async (req, res) => {
-    const response = await CategoryService.getAll();
+    const query = req.query;
+    const response = await CategoryService.getAll(query);
     if (!response) {
       return res.json({
         status: status.NOT_FOUND,
@@ -14,7 +16,7 @@ export class CategoryController {
       status: status.OK,
       data: response,
     });
-  }
+  };
 
   public static async getCategoryById(req, res) {
     const id = req.params.id;
@@ -54,7 +56,7 @@ export class CategoryController {
       status: status.OK,
       data: response,
     });
-  }
+  };
 
   public static updateCategory = async (req, res) => {
     const dataBody = req.body;
@@ -75,7 +77,7 @@ export class CategoryController {
       status: status.OK,
       data: response,
     });
-  }
+  };
 
   public static DeleteCategory = async (req, res) => {
     const response = await CategoryService.DeleteCategory(req.params.id);
@@ -89,5 +91,5 @@ export class CategoryController {
       status: status.OK,
       data: response,
     });
-  }
+  };
 }

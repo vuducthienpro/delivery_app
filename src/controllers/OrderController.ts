@@ -4,7 +4,8 @@ import winston from '../config/winston';
 
 export class OrderController {
   public static getAllOrder = async (req, res) => {
-    const orders = await OrderService.getAllOrder();
+    const query = req.query;
+    const orders = await OrderService.getAllOrder(query);
     if (!orders) {
       return res.json({
         status: status.NOT_FOUND,

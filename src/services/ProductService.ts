@@ -4,8 +4,15 @@ import { FilterQuery, DocumentDefinition, UpdateQuery } from 'mongoose';
 import winston from '../config/winston';
 
 export class ProductService {
-  public static getAll = (query: FilterQuery<ProductDocument>) => {
-    return Product.find(query);
+  public static getAll = async (query: FilterQuery<ProductDocument>) => {
+    let data: any;
+    if (!query.name) {
+      data = '';
+    } else {
+      data = query.name;
+    }
+    // return Product.find(query);
+    return await Product.find({ name: { $regex: '.*' + data + '.*' } });
   };
 
   public static getProductById = (id: FilterQuery<CategoryDocument>) => {

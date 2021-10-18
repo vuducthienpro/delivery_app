@@ -4,7 +4,7 @@ import { FilterQuery, DocumentDefinition, UpdateQuery, QueryOptions } from 'mong
 import winston from '../config/winston';
 
 export class OrderService {
-  public static getAllOrder = () => {
+  public static getAllOrder = async (query: FilterQuery<OrderDocument>) => {
     return Order.find().populate('products').populate('users');
   };
 
