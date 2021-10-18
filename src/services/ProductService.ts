@@ -6,13 +6,30 @@ import winston from '../config/winston';
 export class ProductService {
   public static getAll = async (query: FilterQuery<ProductDocument>) => {
     let data: any;
+    let limit: any;
+    let offset: any;
     if (!query.name) {
       data = '';
     } else {
       data = query.name;
     }
-    // return Product.find(query);
-    return await Product.find({ name: { $regex: '.*' + data + '.*' } });
+    if (!query.limit) {
+      limit = 0;
+    } else {
+      limit = Number(query.limit);
+    }
+    if (!query.offset) {
+      offset = 0;
+    } else {
+      offset = Number(query.limit);
+    }
+    // const limit: any = Number(query.limit) ? query.limit : 20;
+    // const offset: any = Number(query.offset) ? query.offset : 0;
+    // winston.info(typeof limit);
+    // winston.info(typeof offset);
+    return await Product.find({ name: { $regex: '.*' + data + '.*' } })
+      .skip(offset)
+      .limit(limit);
   };
 
   public static getProductById = (id: FilterQuery<CategoryDocument>) => {

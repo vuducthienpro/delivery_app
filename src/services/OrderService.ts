@@ -5,7 +5,25 @@ import winston from '../config/winston';
 
 export class OrderService {
   public static getAllOrder = async (query: FilterQuery<OrderDocument>) => {
-    return Order.find().populate('products').populate('users');
+    let data: any;
+    let limit: any;
+    let offset: any;
+    if (!query.name) {
+      data = '';
+    } else {
+      data = query.name;
+    }
+    if (!query.limit) {
+      limit = 0;
+    } else {
+      limit = Number(query.limit);
+    }
+    if (!query.offset) {
+      offset = 0;
+    } else {
+      offset = Number(query.limit);
+    }
+    return Order.find().populate('products').populate('users').skip(offset).limit(limit);
   };
 
   public static getOrder = (query: FilterQuery<OrderDocument>) => {

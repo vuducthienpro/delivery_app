@@ -6,12 +6,27 @@ import winston from '../config/winston';
 export class CategoryService {
   public static getAll = async (query: FilterQuery<CategoryDocument>) => {
     let data: any;
+    let limit: any;
+    let offset: any;
     if (!query.name) {
       data = '';
     } else {
       data = query.name;
     }
-    return await Category.find({ name: { $regex: '.*' + data + '.*' } }).populate('products');
+    if (!query.limit) {
+      limit = 0;
+    } else {
+      limit = Number(query.limit);
+    }
+    if (!query.offset) {
+      offset = 0;
+    } else {
+      offset = Number(query.limit);
+    }
+    return await Category.find({ name: { $regex: '.*' + data + '.*' } })
+      .populate('products')
+      .skip(offset)
+      .limit(limit);
   };
 
   public static getCategoryById = (id: FilterQuery<CategoryDocument>) => {
