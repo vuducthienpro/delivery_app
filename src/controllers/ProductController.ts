@@ -16,7 +16,7 @@ export class ProductController {
       status: status.OK,
       data: response,
     });
-  }
+  };
 
   public static async getProductById(req, res) {
     const id = req.params.id;
@@ -35,15 +35,9 @@ export class ProductController {
 
   public static insertProduct = async (req, res, next) => {
     const dataBody = req.body;
-    if (req.files.length === 0) {
-      return res.json({
-        status: status.BAD_REQUEST,
-        message: message.IMAGE_NOT_FILES,
-      });
-    }
     dataBody.image = [];
     req.files.forEach((element) => {
-      dataBody.image.push(element.originalname);
+      dataBody.image.push(element.filename);
     });
     const response = await ProductService.insertProduct(dataBody);
     if (!response) {
@@ -56,14 +50,14 @@ export class ProductController {
       status: status.OK,
       data: response,
     });
-  }
+  };
 
   public static updateProduct = async (req, res, next) => {
     const dataBody = req.body;
-    if (req.files.length !== 0) {
+    if (req.files && req.files.length !== 0) {
       dataBody.image = [];
       req.files.forEach((element) => {
-        dataBody.image.push(element.originalname);
+        dataBody.image.push(element.filename);
       });
     }
     const response = await ProductService.updateProduct(req.params.id, dataBody);
@@ -77,7 +71,7 @@ export class ProductController {
       status: status.OK,
       data: response,
     });
-  }
+  };
 
   public static DeleteProduct = async (req, res, next) => {
     const response = await ProductService.DeleteProduct(req.params.id);
@@ -91,5 +85,5 @@ export class ProductController {
       status: status.OK,
       data: response,
     });
-  }
+  };
 }
