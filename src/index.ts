@@ -8,6 +8,7 @@ import mongoose from 'mongoose';
 import bodyParser from 'body-parser';
 import config from './config/options';
 import cors from 'cors';
+import cookieParser from 'cookie-parser';
 
 // routers
 import runningRouter from './routes/running';
@@ -35,6 +36,7 @@ const app = express();
 // parse various different custom JSON types as JSON
 app.use(bodyParser.json());
 app.use(cors());
+app.use(cookieParser());
 
 // upload image
 app.use('/images', express.static(path.join(__dirname, 'uploads')));

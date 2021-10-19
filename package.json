@@ -24,10 +24,12 @@
   },
   "homepage": "https://github.com/d10cn2btt/typescript-nodejs#readme",
   "dependencies": {
+    "@types/cookie-parser": "^1.4.2",
     "@types/jsonwebtoken": "^8.5.5",
     "@types/multer": "^1.4.7",
     "bcrypt": "^5.0.1",
     "body-parser": "^1.19.0",
+    "cookie-parser": "^1.4.5",
     "cookie-session": "^1.4.0",
     "cors": "^2.8.5",
     "dotenv": "^10.0.0",

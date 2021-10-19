@@ -18,6 +18,7 @@ export class AdminController {
           HEADER_JWT_ALG,
           { expiresIn: '7d' },
         );
+        res.cookie(token);
         await AdminService.findAndUpdateAdmin(username, { token }, { new: true });
         return res.json({
           status: status.OK,
@@ -84,6 +85,7 @@ export class AdminController {
         HEADER_JWT_ALG,
         { expiresIn: '7d' },
       );
+      res.cookie(token);
       await AdminService.findAndUpdateAdmin({ username: newAdmin.username }, { token }, { new: true });
 
       return res.json({
