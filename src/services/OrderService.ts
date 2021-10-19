@@ -30,6 +30,10 @@ export class OrderService {
     return Order.findById(query);
   };
 
+  public static historyOrder = (userId) => {
+    return Order.find({ users: [ userId ] }).populate('products');
+  };
+
   public static createOrder = async (input: DocumentDefinition<OrderDocument>) => {
     const product = await Product.findOne({ name: input.name }).exec();
     if (!product) throw 'product not exit';

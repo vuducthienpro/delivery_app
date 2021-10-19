@@ -8,6 +8,7 @@ import authUser from '../middleware/authUser';
 const router = Router();
 
 router.get('/', authAdminAndUser, OrderController.getAllOrder);
+router.get('/history', authAdminAndUser, OrderController.historyOrder);
 router.get('/:id', getOrderByIdSchema, validateRequestSchema, authAdminAndUser, OrderController.getOrderById);
 router.post('/', insertOrderSchema, validateRequestSchema, authUser, OrderController.createOrder);
 router.put('/:id', updateOrderSchema, validateRequestSchema, authAdminAndUser, OrderController.updateOrder);

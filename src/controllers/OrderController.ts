@@ -94,4 +94,19 @@ export class OrderController {
       data: order,
     });
   };
+
+  public static historyOrder = async (req, res, next) => {
+    const userId:any = req.user._id;
+    const order = await OrderService.historyOrder(userId);
+    if (!order) {
+      return res.json({
+        status: status.NOT_FOUND,
+        message: message.NOT_FOUND,
+      });
+    }
+    return res.json({
+      status: status.OK,
+      data: order,
+    });
+  }
 }
