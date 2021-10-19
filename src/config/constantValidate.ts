@@ -3,6 +3,8 @@ export const VALIDATE = {
   ID_NOT_INVALID: 'Id malformed',
   NAME_NOT_EMPTY: 'Name cannot be empty',
   NAME_NOT_INVALID: 'Name malformed',
+  DESCRIPTION_NOT_EMPTY: 'Description cannot be empty',
+  DESCRIPTION_NOT_INVALID: 'Description malformed',
   ID_CATEGORY_EMPTY: 'Product category id cannot be empty',
   ID_CATEGORY_INVALID: 'Product category id malformed',
   PRICE_EMPTY: 'Product price cannot be empty',

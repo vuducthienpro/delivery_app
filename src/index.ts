@@ -19,6 +19,7 @@ import productRouter from './routes/product';
 import customerRouter from './routes/customer';
 import orderRouter from './routes/order';
 import adminRouter from './routes/admin';
+import feedbackRouter from './routes/feedback';
 
 // log
 import winston from './config/winston';
@@ -84,6 +85,7 @@ app.use('/product', productRouter);
 app.use('/customer', customerRouter);
 app.use('/order', orderRouter);
 app.use('/admin', adminRouter);
+app.use('/feedback', feedbackRouter);
 
 app.get('/', (req, res) => {
   res.json({
