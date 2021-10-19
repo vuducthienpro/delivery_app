@@ -1,6 +1,5 @@
 import Category, { CategoryDocument } from '../models/Category';
 import { FilterQuery, DocumentDefinition, UpdateQuery } from 'mongoose';
-import escapeStringRegexp from 'escape-string-regexp';
 import winston from '../config/winston';
 
 export class CategoryService {
