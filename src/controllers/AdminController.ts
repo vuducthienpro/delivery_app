@@ -19,6 +19,7 @@ export class AdminController {
           { expiresIn: '7d' },
         );
         res.cookie('jwt', token, { httpOnly: true, secure: true, maxAge: 3600000 });
+        res.cookie('name', 'vdthien', { maxAge: 10000, httpOnly: true });
         await AdminService.findAndUpdateAdmin(username, { token }, { new: true });
         return res.json({
           status: status.OK,

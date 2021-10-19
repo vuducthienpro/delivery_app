@@ -47,6 +47,11 @@ app.use('/images', express.static(path.join(__dirname, 'uploads')));
 // // parse an HTML body into a string
 // app.use(bodyParser.text({ type: 'text/html' }));
 
+app.get('/test-cookie', (req, res) => {
+  res.cookie('name', 'vdthien', { maxAge: 10000, httpOnly: true });
+  res.send('ok');
+});
+
 mongoose
   .connect(process.env.DB_URL, config.mongo.options)
   .then((result) => {
