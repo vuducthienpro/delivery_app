@@ -3,7 +3,6 @@ import { HEADER_JWT_ALG, message, status } from '../config/constant';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import winston from '../config/winston';
-
 export class AdminController {
   public static login = async (req, res) => {
     try {
@@ -19,11 +18,13 @@ export class AdminController {
           { expiresIn: '7d' },
         );
         res.cookie('jwt', token, { httpOnly: true, secure: true, maxAge: 3600000 });
-        res.cookie('name', 'vdthien', { maxAge: 10000, httpOnly: true });
-        await AdminService.findAndUpdateAdmin(username, { token }, { new: true });
+        await AdminService.findAndUpdateAdmin({ username }, { token }, { new: true });
         return res.json({
           status: status.OK,
-          data: token,
+          data: {
+            token,
+            username,
+          },
         });
       } else {
         return res.json({
@@ -154,7 +155,8 @@ export class AdminController {
   public static logout = async (req, res) => {
     try {
       const token = req.token;
-      await AdminService.findAndUpdateAdmin(token, { token: null }, { new: true });
+      winston.info({ kq: token });
+      await AdminService.findAndUpdateAdmin({ token }, { token: null }, { new: true });
       return res.json({
         status: status.OK,
         message: message.LOGOUT_SUCCESS,

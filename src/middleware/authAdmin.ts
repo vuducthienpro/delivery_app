@@ -13,6 +13,7 @@ const authAdmin = async (req, res, next) => {
       const user = await Admin.findById(id).exec();
       if (user) {
         req.user = user;
+        req.token = token;
         next();
       } else {
         res.json({
