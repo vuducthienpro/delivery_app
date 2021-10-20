@@ -17,20 +17,20 @@ const authUser = async (req, res, next) => {
         next();
       } else {
         res.json({
-          status: 'error',
+          status: 403,
           message: message.ERROR_TOKEN,
         });
       }
     } else {
       res.json({
-        status: 'error',
+        status: 403,
         message: message.ERROR_TOKEN,
       });
     }
   } catch (error) {
     winston.info(error);
     res.json({
-      status: 'error',
+      status: 403,
       message: message.ERROR_TOKEN,
     });
   }
