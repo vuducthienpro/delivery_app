@@ -12,6 +12,7 @@ const authAdmin = async (req, res, next) => {
     if (req.cookies.jwt) {
       token = req.cookies.jwt;
     }
+    winston.info(req.headers.authorization);
     winston.info('req.cookies');
     winston.info(req.cookies);
     if (token) {
