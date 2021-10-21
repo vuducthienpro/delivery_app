@@ -65,7 +65,6 @@ passport.use(
       passReqToCallback: true,
     },
     (req, accessToken, refreshToken, profile, done) => {
-      winston.info(accessToken);
       User.find(
         {
           social: profile.provider,
@@ -136,7 +135,6 @@ router.post('/login-google', async (req, res) => {
     const tokenGoogle = req.body.token;
     const dataGoogle = `https://www.googleapis.com/oauth2/v1/userinfo?access_token=${tokenGoogle}`;
     let resultGoogle = await request({ method: 'GET', url: dataGoogle });
-    winston.info(resultGoogle);
     resultGoogle = JSON.parse(resultGoogle);
     const fillUser = await User.findOne({ social: 'google', social_id: resultGoogle.id });
     let token: string;
@@ -165,7 +163,6 @@ router.post('/login-line', async (req, res) => {
     const tokenLine = req.body.token;
     const dataLine = `https://api.line.me/oauth2/v2.1/verify`;
     let resultLine = await request({ method: 'POST', url: dataLine, body: { id_token: tokenLine } });
-    // winston.info(resultGoogle);
     resultLine = JSON.parse(resultLine);
     const fillUser = await User.findOne({ social: 'google', social_id: resultLine.id });
     let token: string;

@@ -153,14 +153,12 @@ export class AdminController {
   public static logout = async (req, res) => {
     try {
       const token = req.token;
-      winston.info({ kq: token });
       await AdminService.findAndUpdateAdmin({ token }, { token: null }, { new: true });
       return res.json({
         status: status.OK,
         message: message.LOGOUT_SUCCESS,
       });
     } catch (error) {
-      winston.info(error);
       return res.json({
         status: status.OK,
         message: message.LOGOUT_FALSE,
