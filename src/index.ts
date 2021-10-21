@@ -54,7 +54,6 @@ app.use('/images', express.static(path.join(__dirname, 'uploads')));
 // // parse an HTML body into a string
 // app.use(bodyParser.text({ type: 'text/html' }));
 
-
 mongoose
   .connect(process.env.DB_URL, config.mongo.options)
   .then((result) => {
@@ -98,6 +97,7 @@ app.use('/admin', adminRouter);
 app.use('/feedback', feedbackRouter);
 
 app.get('/', (req, res) => {
+  res.cookie('vdthien', 'cookie', { httpOnly: true, secure: true, maxAge: 3600000 });
   res.json({
     status: 200,
     result: 'test',
