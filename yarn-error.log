@@ -1,30 +1,30 @@
 Arguments: 
-  /usr/bin/node /usr/bin/yarn lint-debug
+  /home/thientl/.nvm/versions/node/v14.15.4/bin/node /usr/local/bin/yarn lint-debug
 
 PATH: 
-  /root/delivery_app/node_modules/.bin:/tmp/yarn--1634752877460-0.4532272206872383:/root/delivery_app/node_modules/.bin:/usr/local/share/.config/yarn/link/node_modules/.bin:/usr/libexec/lib/node_modules/npm/bin/node-gyp-bin:/usr/lib/node_modules/npm/bin/node-gyp-bin:/usr/bin/node_modules/npm/bin/node-gyp-bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/root/bin
+  /home/thientl/Desktop/folder/delivery_app/node_modules/.bin:/tmp/yarn--1634750178525-0.8475363891552565:/home/thientl/Desktop/folder/delivery_app/node_modules/.bin:/home/thientl/.config/yarn/link/node_modules/.bin:/home/thientl/.yarn/bin:/home/thientl/.nvm/versions/node/v14.15.4/libexec/lib/node_modules/npm/bin/node-gyp-bin:/home/thientl/.nvm/versions/node/v14.15.4/lib/node_modules/npm/bin/node-gyp-bin:/home/thientl/.nvm/versions/node/v14.15.4/bin/node_modules/npm/bin/node-gyp-bin:/home/thientl/bin:/home/thientl/.nvm/versions/node/v14.15.4/bin:/home/thientl/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin
 
 Yarn version: 
-  1.22.15
+  1.22.11
 
 Node version: 
-  14.18.0
+  14.15.4
 
 Platform: 
   linux x64
 
 Trace: 
   Error: EIO: i/o error, write
-      at writeSync (fs.js:736:3)
+      at writeSync (fs.js:711:3)
       at SyncWriteStream._write (internal/fs/sync_write_stream.js:24:3)
       at writeOrBuffer (internal/streams/writable.js:358:12)
       at SyncWriteStream.Writable.write (internal/streams/writable.js:303:10)
-      at ConsoleReporter._log (/usr/lib/node_modules/yarn/lib/cli.js:92828:17)
-      at ConsoleReporter.log (/usr/lib/node_modules/yarn/lib/cli.js:92816:10)
-      at ConsoleReporter.command (/usr/lib/node_modules/yarn/lib/cli.js:92845:10)
-      at /usr/lib/node_modules/yarn/lib/cli.js:34393:16
+      at ConsoleReporter._log (/usr/local/lib/node_modules/yarn/lib/cli.js:96784:17)
+      at ConsoleReporter.log (/usr/local/lib/node_modules/yarn/lib/cli.js:96772:10)
+      at ConsoleReporter.command (/usr/local/lib/node_modules/yarn/lib/cli.js:96801:10)
+      at /usr/local/lib/node_modules/yarn/lib/cli.js:34549:16
       at Generator.next (<anonymous>)
-      at step (/usr/lib/node_modules/yarn/lib/cli.js:310:30)
+      at step (/usr/local/lib/node_modules/yarn/lib/cli.js:310:30)
 
 npm manifest: 
   {
