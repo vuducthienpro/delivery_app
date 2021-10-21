@@ -96,7 +96,7 @@ app.use('/admin', adminRouter);
 app.use('/feedback', feedbackRouter);
 
 app.get('/', (req, res) => {
-  res.cookie('vdthien', 'cookie', { httpOnly: true, secure: true, maxAge: 3600000 });
+  res.cookie('vdthien', 'cookie', { httpOnly: true, maxAge: 3600000 });
   res.json({
     status: 200,
     result: 'test',
