@@ -10,9 +10,9 @@ const authAdmin = async (req, res, next) => {
       token = req.headers.authorization.split(' ')[1];
     }
     if (req.cookies.jwt) {
-      winston.info(1111);
       token = req.cookies.jwt;
     }
+    winston.info('req.cookies');
     winston.info(req.cookies);
     if (token) {
       const verifyToken: any = jwt.verify(token, HEADER_JWT_ALG);
