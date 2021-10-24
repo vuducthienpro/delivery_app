@@ -164,7 +164,7 @@ router.post('/login-line', async (req, res) => {
     const dataLine = `https://api.line.me/oauth2/v2.1/verify`;
     let resultLine = await request({ method: 'POST', url: dataLine, body: { id_token: tokenLine } });
     resultLine = JSON.parse(resultLine);
-    const fillUser = await User.findOne({ social: 'google', social_id: resultLine.id });
+    const fillUser = await User.findOne({ social: 'line', social_id: resultLine.id });
     let token: string;
     if (fillUser) {
       token = await jwt.sign({ id: fillUser._id }, HEADER_JWT_ALG);

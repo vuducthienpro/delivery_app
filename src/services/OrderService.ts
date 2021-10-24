@@ -52,7 +52,8 @@ export class OrderService {
     return Order.find({ users: [userId] })
       .populate('products')
       .skip(offset)
-      .limit(limit);
+      .limit(limit)
+      .sort({ created_at: -1 });
   };
 
   public static createOrder = async (input: DocumentDefinition<OrderDocument>) => {
