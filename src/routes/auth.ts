@@ -160,10 +160,11 @@ router.post('/login-google', async (req, res) => {
 
 router.post('/login-line', async (req, res) => {
   try {
-    const tokenLine = req.body.token;
-    const dataLine = `https://api.line.me/oauth2/v2.1/verify`;
-    let resultLine = await request({ method: 'POST', url: dataLine, body: { id_token: tokenLine } });
+    const tokenLine = 'Bearer ' + req.body.token;
+    const dataLine = `https://api.line.me/v2/profile`;
+    let resultLine = await request({ method: 'GET', url: dataLine, headers: { Authorization: tokenLine } });
     resultLine = JSON.parse(resultLine);
+    winston.info(resultLine.userId);
     const fillUser = await User.findOne({ social: 'line', social_id: resultLine.id });
     let token: string;
     if (fillUser) {
@@ -171,11 +172,9 @@ router.post('/login-line', async (req, res) => {
       return res.send(token);
     }
     const createUser = await User.create({
-      name: resultLine.name,
-      email: resultLine.email,
-      avatar: resultLine.picture,
+      name: resultLine.displayName,
       social: 'line',
-      social_id: resultLine.id,
+      social_id: resultLine.userId,
     });
     token = await jwt.sign({ id: createUser._id }, HEADER_JWT_ALG);
     return res.send(token);
