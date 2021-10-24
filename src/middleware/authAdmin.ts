@@ -10,10 +10,8 @@ const authAdmin = async (req, res, next) => {
       token = req.headers.authorization.split(' ')[1];
     }
     if (req.cookies.jwt) {
-      winston.info(1111);
       token = req.cookies.jwt;
     }
-    winston.info(req.cookies);
     if (token) {
       const verifyToken: any = jwt.verify(token, HEADER_JWT_ALG);
       const id = verifyToken.id;
@@ -35,7 +33,6 @@ const authAdmin = async (req, res, next) => {
       });
     }
   } catch (error) {
-    winston.info(error);
     res.json({
       status: 403,
       message: message.ERROR_TOKEN,

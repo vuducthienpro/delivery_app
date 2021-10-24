@@ -34,7 +34,6 @@ const authAdminAndUser = async (req, res, next) => {
       });
     }
   } catch (error) {
-    winston.info(error);
     res.json({
       status: 403,
       message: message.ERROR_TOKEN,
