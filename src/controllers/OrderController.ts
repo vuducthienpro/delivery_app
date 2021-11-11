@@ -110,4 +110,7 @@ export class OrderController {
       data: order,
     });
   };
+  public static purchaseOrder= async (req,res,next)=>{
+    const userId: any = req.user._id;
+  }
 }

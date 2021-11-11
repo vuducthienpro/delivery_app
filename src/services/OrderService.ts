@@ -1,7 +1,7 @@
 import Order, { OrderDocument } from '../models/Order';
 import Product from '../models/Product';
 import { FilterQuery, DocumentDefinition, UpdateQuery, QueryOptions } from 'mongoose';
-import winston from '../config/winston';
+import { CreatePurchaseOrder } from './../interface/order.interface';
 
 export class OrderService {
   public static getAllOrder = async (query: FilterQuery<OrderDocument>) => {
@@ -75,4 +75,7 @@ export class OrderService {
   public static deleteOrder = (query: FilterQuery<OrderDocument>) => {
     return Order.deleteOne(query);
   };
+  public createPurchaseOrder=(userId:string,data:CreatePurchaseOrder)=>{
+    return 0 ;
+  }
 }

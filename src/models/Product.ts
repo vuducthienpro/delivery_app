@@ -7,26 +7,40 @@ export interface ProductDocument extends mongoose.Document {
   name: string;
   image: any;
   price: number;
+  total: number;
   status: number;
   quantity: number;
   description: string;
+  shipCompany: string;
+  estimatedWeight: number;
+  fixedWeight: number;
+  confirmed: boolean;
+  customerNote: string;
+  staffNote: string;
 }
 
 const schemaOptions = {
-    timestamps: { createdAt: 'created_at', updatedAt: 'updated_at' },
+  timestamps: { createdAt: 'created_at', updatedAt: 'updated_at' },
 };
 
 const ProductSchema = new mongoose.Schema(
   {
     // category: [{ type: Schema.Types.ObjectId, ref: 'Category' }],
-    category_id: { type: String, required: true },
+    category_id: { type: String },
     order_id: { type: String },
-    name: { type: String, required: true, unique: true },
-    image: { type: Array, required: true },
-    price: { type: Number, required: true },
+    name: { type: String, required: false, unique: true },
+    image: { type: Array, required: false },
+    price: { type: Number, required: false },
+    totalPrice: { type: Number, required: false },
     status: { type: Number, required: true, default: 1 }, // 0: Out of stock - 1: Stocking
-    quantity: { type: Number, required: true },
-    description: { type: String, required: true },
+    quantity: { type: Number },
+    shipCompany: { type: String },
+    description: { type: String },
+    estimatedWeight: { type: Number },
+    fixedWeight: Number,
+    confirmed: { type: Boolean, default: false },
+    customerNote: { type: String },
+    staffNote: String,
   },
   schemaOptions,
 );
