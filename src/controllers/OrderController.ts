@@ -111,6 +111,11 @@ export class OrderController {
     });
   };
   public static purchaseOrder= async (req,res,next)=>{
-    const userId: any = req.user._id;
+    const userId: any = req.user?._id;
+    console.log(req.body);
+    await OrderService.createPurchaseOrder(userId,req.body);
+    return res.json({
+      status: status.OK,
+    });
   }
 }

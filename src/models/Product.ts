@@ -28,7 +28,7 @@ const ProductSchema = new mongoose.Schema(
     // category: [{ type: Schema.Types.ObjectId, ref: 'Category' }],
     category_id: { type: String },
     order_id: { type: String },
-    name: { type: String, required: false, unique: true },
+    name: { type: String, required: false },
     image: { type: Array, required: false },
     price: { type: Number, required: false },
     totalPrice: { type: Number, required: false },

@@ -75,7 +75,16 @@ export class OrderService {
   public static deleteOrder = (query: FilterQuery<OrderDocument>) => {
     return Order.deleteOne(query);
   };
-  public createPurchaseOrder=(userId:string,data:CreatePurchaseOrder)=>{
-    return 0 ;
-  }
+  public static createPurchaseOrder = async (userId: string, data: CreatePurchaseOrder) => {
+    const products = await Promise.all(
+      data.products.map((product) => {
+        return Product.create({
+          name: product.name,
+          quantity: product.quantity,
+          customerNote: product.note,
+        });
+      }),
+    );
+    console.log(products);
+  };
 }

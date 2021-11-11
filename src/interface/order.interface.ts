@@ -4,7 +4,7 @@ interface ProductPurchaseOrder {
   note?: string;
 }
 export interface CreatePurchaseOrder {
-  products?: ProductPurchaseOrder[];
+  products: ProductPurchaseOrder[];
   name: string;
   email: string;
   phone: string;

@@ -5,6 +5,7 @@
   ],
   "jsRules": {},
   "rules": {
+    "no-console": false,
     "no-string-throw": false,
     "whitespace": [true, "check-module"],
     "no-unused-expression": false,
