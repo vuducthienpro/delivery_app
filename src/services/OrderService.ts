@@ -63,7 +63,7 @@ export class OrderService {
     const arrProduct = oderCreate.products;
     arrProduct.push(product._id);
     const arrUser = oderCreate.users;
-    arrUser.push(input.user_id);
+    // arrUser.push(input.user_id);
     await Order.findOneAndUpdate({ _id: oderCreate._id }, { products: arrProduct, users: arrUser });
     return oderCreate;
   };
@@ -75,7 +75,7 @@ export class OrderService {
   public static deleteOrder = (query: FilterQuery<OrderDocument>) => {
     return Order.deleteOne(query);
   };
-  public static createPurchaseOrder = async (userId: string, data: CreatePurchaseOrder) => {
+  public static createPurchaseOrder = async (userId: string, data: CreatePurchaseOrder): Promise<any> => {
     const products = await Promise.all(
       data.products.map((product) => {
         return Product.create({
@@ -85,6 +85,11 @@ export class OrderService {
         });
       }),
     );
-    console.log(products);
+    const orderDetial = await Order.create({
+      user: userId,
+      ...data,
+      products: products.map((pr) => pr._id),
+    });
+    return orderDetial;
   };
 }

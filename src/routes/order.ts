@@ -13,6 +13,6 @@ router.get('/:id', getOrderByIdSchema, validateRequestSchema, authAdminAndUser, 
 router.post('/', insertOrderSchema, validateRequestSchema, authUser, OrderController.createOrder);
 router.put('/:id', updateOrderSchema, validateRequestSchema, authAdminAndUser, OrderController.updateOrder);
 router.delete('/:id', deleteOrderByIdSchema, validateRequestSchema, authAdminAndUser, OrderController.deleteOrder);
-router.post('/purchase-order',OrderController.purchaseOrder);
+router.post('/purchase-order', authAdminAndUser, OrderController.purchaseOrder);
 
 export default router;

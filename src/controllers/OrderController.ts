@@ -110,12 +110,18 @@ export class OrderController {
       data: order,
     });
   };
-  public static purchaseOrder= async (req,res,next)=>{
-    const userId: any = req.user?._id;
-    console.log(req.body);
-    await OrderService.createPurchaseOrder(userId,req.body);
-    return res.json({
-      status: status.OK,
-    });
-  }
+  public static purchaseOrder = async (req, res, next) => {
+    try {
+      const userId: any = req.user?._id;
+      const data = await OrderService.createPurchaseOrder(userId, req.body);
+      return res.json({
+        status: status.OK,
+        data,
+      });
+    } catch (error) {
+      res.status(500).json({
+        status: status.BAD_REQUEST,
+      });
+    }
+  };
 }
