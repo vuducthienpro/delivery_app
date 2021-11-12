@@ -79,6 +79,7 @@ export class OrderService {
     const products = await Promise.all(
       data.products.map((product) => {
         return Product.create({
+          url:product.url,
           name: product.name,
           quantity: product.quantity,
           customerNote: product.note,
@@ -89,6 +90,7 @@ export class OrderService {
       user: userId,
       ...data,
       products: products.map((pr) => pr._id),
+      quantity:data.products.reduce((a,b)=>{return a + b.quantity},0),
     });
     return orderDetial;
   };
@@ -108,7 +110,14 @@ export class OrderService {
       ...data,
       orderType: EOrderType.SHIP_ORDER,
       products: products.map((pr) => pr._id),
+      quantity:data.products.reduce((a,b)=>{return a + b.quantity},0),
     });
     return orderDetial;
   };
+  public static historyOrderUser=async (userId:string,page:number=1,limit:number=10)=>{
+    const listOrder = await Order.find({
+      user:userId,
+    });
+    return listOrder ;
+  }
 }

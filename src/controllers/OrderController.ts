@@ -137,4 +137,17 @@ export class OrderController {
       });
     }
   };
+  public static historyOrderUser = async (req, res, next) => {
+    try {
+      const data = await OrderService.historyOrderUser(req.user._id, req.query.page, req.query.limt);
+      return res.json({
+        status: status.OK,
+        data,
+      });
+    } catch (error) {
+      res.status(500).json({
+        status: status.BAD_REQUEST,
+      });
+    }
+  };
 }

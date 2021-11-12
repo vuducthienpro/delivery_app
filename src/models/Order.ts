@@ -1,15 +1,18 @@
 import mongoose, { Schema } from 'mongoose';
 import { EOrderStatus, EOrderType } from './../constant/order.status';
+import { orderNoNumber } from './../common/text.helper';
 const schemaOptions = {
   timestamps: { createdAt: 'created_at', updatedAt: 'updated_at' },
 };
 
 export interface OrderDocument extends mongoose.Document {
+  orderNo: string;
   name: string;
   email: string;
   user: string;
   status: number;
   quantity: number;
+  url: string;
   orderType: string;
   description: string;
   orderDate: Date;
@@ -24,6 +27,7 @@ export interface OrderDocument extends mongoose.Document {
 const OrderSchema = new mongoose.Schema(
   {
     products: [{ type: Schema.Types.ObjectId, ref: 'Product' }],
+    orderNo: { type: String, default: orderNoNumber },
     user: { type: Schema.Types.ObjectId, ref: 'User' },
     name: { type: String },
     status: { type: String, default: EOrderStatus.REGISTER_ORDER, enum: EOrderStatus }, // 0: Processing - 1: delivering - 2: Delivered - 3: Canceled
@@ -31,6 +35,7 @@ const OrderSchema = new mongoose.Schema(
     phone: { type: String },
     orderType: { type: String, enum: EOrderType, default: EOrderType.PURCHASE_ORDER },
     quantity: { type: Number, default: 0 },
+    url: { type: String },
     total_price: { type: Number, default: 0 },
     orderDate: { type: Date, default: Date.now },
     description: { type: String },

@@ -15,5 +15,6 @@ router.put('/:id', updateOrderSchema, validateRequestSchema, authAdminAndUser, O
 router.delete('/:id', deleteOrderByIdSchema, validateRequestSchema, authAdminAndUser, OrderController.deleteOrder);
 router.post('/purchase-order', authAdminAndUser, OrderController.purchaseOrder);
 router.post('/ship-order', authAdminAndUser, OrderController.shipOrder);
+router.get('/user/order-history', authAdminAndUser, OrderController.historyOrderUser);
 
 export default router;

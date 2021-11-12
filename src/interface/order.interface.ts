@@ -1,4 +1,5 @@
 interface ProductPurchaseOrder {
+  url:string;
   name: string;
   quantity: number;
   note?: string;
