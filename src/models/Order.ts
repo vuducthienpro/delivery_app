@@ -12,6 +12,7 @@ export interface OrderDocument extends mongoose.Document {
   quantity: number;
   orderType: string;
   description: string;
+  orderDate: Date;
   total_price: number;
   phone: string;
   shippingAddress: string;
@@ -29,8 +30,9 @@ const OrderSchema = new mongoose.Schema(
     email: { type: String },
     phone: { type: String },
     orderType: { type: String, enum: EOrderType, default: EOrderType.PURCHASE_ORDER },
-    quantity: { type: Number },
-    total_price: { type: Number },
+    quantity: { type: Number, default: 0 },
+    total_price: { type: Number, default: 0 },
+    orderDate: { type: Date, default: Date.now },
     description: { type: String },
     shippingAddress: { type: String },
     paymentMethod: { type: String }, // 0: cash - 1: atm
