@@ -124,4 +124,17 @@ export class OrderController {
       });
     }
   };
+  public static shipOrder = async (req, res, next) => {
+    try {
+      const data = await OrderService.createShipOrder(req.user._id, req.body);
+      return res.json({
+        status: status.OK,
+        data,
+      });
+    } catch (error) {
+      res.status(500).json({
+        status: status.BAD_REQUEST,
+      });
+    }
+  };
 }

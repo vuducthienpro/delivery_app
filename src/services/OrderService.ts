@@ -1,8 +1,8 @@
 import Order, { OrderDocument } from '../models/Order';
 import Product from '../models/Product';
 import { FilterQuery, DocumentDefinition, UpdateQuery, QueryOptions } from 'mongoose';
-import { CreatePurchaseOrder } from './../interface/order.interface';
-
+import { CreatePurchaseOrder, CreateShipOrder } from './../interface/order.interface';
+import { EOrderType } from './../constant/order.status';
 export class OrderService {
   public static getAllOrder = async (query: FilterQuery<OrderDocument>) => {
     let data: any;
@@ -88,6 +88,25 @@ export class OrderService {
     const orderDetial = await Order.create({
       user: userId,
       ...data,
+      products: products.map((pr) => pr._id),
+    });
+    return orderDetial;
+  };
+  public static createShipOrder = async (userId: string, data: CreateShipOrder) => {
+    const products = await Promise.all(
+      data.products.map((product) => {
+        return Product.create({
+          image: product.image,
+          name: product.name,
+          quantity: product.quantity,
+          customerNote: product.note,
+        });
+      }),
+    );
+    const orderDetial = await Order.create({
+      user: userId,
+      ...data,
+      orderType: EOrderType.SHIP_ORDER,
       products: products.map((pr) => pr._id),
     });
     return orderDetial;

@@ -14,6 +14,6 @@ export enum EOrderStatus {
   COMPLETED = 'COMPLETED',
 }
 export enum EOrderType {
-  PURCHASE_ORDER = 'PURCHASE ORDER',
+  PURCHASE_ORDER = 'PURCHASE_ORDER',
   SHIP_ORDER = 'SHIP_ORDER',
 }
