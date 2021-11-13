@@ -8,7 +8,7 @@ import request from 'request-promise';
 import winston from '../config/winston';
 import jwt from 'jsonwebtoken';
 import { HEADER_JWT_ALG } from '../config/constant';
-import { json } from 'body-parser';
+import authAdminAndUser from '../middleware/authAdminAndUser';
 
 const LineStrategy = passportLine.Strategy;
 const GoogleStrategy = passportGoogle.Strategy;
@@ -181,6 +181,35 @@ router.post('/login-line', async (req, res) => {
   } catch (error) {
     return res.json({
       error: JSON.parse(error.error),
+    });
+  }
+});
+
+router.post('/add-token', authAdminAndUser, async (req:any, res) => {
+  try {
+    await User.findByIdAndUpdate(req.user?._id, {
+      $addToSet: { token: req.body.token },
+    });
+    return res.json({
+      status: 'success',
+    });
+  } catch (error) {
+    return res.status(400).json({
+      error,
+    });
+  }
+});
+router.post('/remove-token', authAdminAndUser, async (req:any, res) => {
+  try {
+    await User.findByIdAndUpdate(req.user?._id, {
+      $pull: { token: req.body.token },
+    });
+    return res.json({
+      status: 'success',
+    });
+  } catch (error) {
+    return res.status(400).json({
+      error,
     });
   }
 });
