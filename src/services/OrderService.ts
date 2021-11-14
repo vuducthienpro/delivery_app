@@ -81,7 +81,7 @@ export class OrderService {
         return Product.create({
           url:product.url,
           name: product.name,
-          quantity: product.quantity,
+          quantity: product?.quantity || 0,
           customerNote: product.note,
         });
       }),
@@ -105,12 +105,13 @@ export class OrderService {
         });
       }),
     );
+    const quatity = data.products.reduce((a,b)=>{return a + b.quantity},0) ;
     const orderDetial = await Order.create({
       user: userId,
       ...data,
       orderType: EOrderType.SHIP_ORDER,
       products: products.map((pr) => pr._id),
-      quantity:data.products.reduce((a,b)=>{return a + b.quantity},0),
+      quantity:isNaN(quatity)?0:quatity,
     });
     return orderDetial;
   };

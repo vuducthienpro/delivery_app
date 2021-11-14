@@ -33,7 +33,7 @@ const ProductSchema = new mongoose.Schema(
     price: { type: Number, required: false },
     totalPrice: { type: Number, required: false },
     status: { type: Number, required: true, default: 1 }, // 0: Out of stock - 1: Stocking
-    quantity: { type: Number },
+    quantity: { type: Number ,default: 0 , required: false},
     shipCompany: { type: String },
     description: { type: String },
     estimatedWeight: { type: Number },
