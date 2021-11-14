@@ -120,4 +120,10 @@ export class OrderService {
     });
     return listOrder ;
   }
+  public static updateDeliveryDateTime = async (userId:string,orderId:string,date:Date,time:string)=>{
+    return Order.findByIdAndUpdate(orderId,{
+      deliveryDate:date,
+      deliveryTime:time,
+    })
+  }
 }

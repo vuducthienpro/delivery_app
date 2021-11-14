@@ -150,4 +150,18 @@ export class OrderController {
       });
     }
   };
+  public static updateDeliveryDateTime= async (req,res,next)=>{
+    try {
+      const data = await OrderService.updateDeliveryDateTime(req.user._id,req.params.id,req.body.date,req.body.time);
+      return res.json({
+        status: status.OK,
+        data,
+      });
+    }
+    catch (error){
+      res.json({
+        error,
+      });
+    }
+  }
 }
