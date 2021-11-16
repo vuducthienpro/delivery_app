@@ -86,4 +86,18 @@ export class ProductController {
       data: response,
     });
   };
+  public static updateStatusProduct = async (req, res, next) => {
+    try {
+      const data = await ProductService.updateStatusProduct(req.params.id, req.body.status);
+      return res.json({
+        status: status.OK,
+        data,
+      });
+    } catch (error) {
+      return res.json({
+        status: status.OK,
+        error,
+      });
+    }
+  };
 }

@@ -13,5 +13,6 @@ router.get('/:id', getCategoryByIdSchema, validateRequestSchema, authAdminAndUse
 router.post('/', upload.array('image', 5), insertProductSchema, validateRequestSchema, authAdmin, ProductController.insertProduct);
 router.put('/:id', upload.array('image', 5), updateProductSchema, validateRequestSchema, authAdmin, ProductController.updateProduct);
 router.delete('/:id', deleteCategoryByIdSchema, validateRequestSchema, authAdmin, ProductController.DeleteProduct);
+router.put('/update-status/:id', ProductController.updateStatusProduct);
 
 export default router;

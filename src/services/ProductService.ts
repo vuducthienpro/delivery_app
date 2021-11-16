@@ -1,7 +1,7 @@
 import Product, { ProductDocument } from '../models/Product';
 import Category, { CategoryDocument } from '../models/Category';
 import { FilterQuery, DocumentDefinition, UpdateQuery } from 'mongoose';
-import winston from '../config/winston';
+import { EProductStatus } from './../constant/product.status';
 
 export class ProductService {
   public static getAll = async (query: FilterQuery<ProductDocument>) => {
@@ -61,6 +61,13 @@ export class ProductService {
     if (product) {
       await Product.deleteOne({ _id: id });
       return product;
+    }
+  };
+  public static updateStatusProduct = async (productId: string, status: string) => {
+    if ((Object as any).values(EProductStatus).includes(status)) {
+      return Product.findByIdAndUpdate(productId, {
+        status,
+      });
     }
   };
 }

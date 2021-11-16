@@ -1,14 +1,14 @@
 import mongoose, { Schema } from 'mongoose';
-
+import { EProductStatus } from './../constant/product.status';
 export interface ProductDocument extends mongoose.Document {
   _id: number;
   category_id: string;
   order: number;
   name: string;
-  image: any;
+  image: string;
   price: number;
   total: number;
-  status: number;
+  status: string;
   quantity: number;
   description: string;
   shipCompany: string;
@@ -29,11 +29,11 @@ const ProductSchema = new mongoose.Schema(
     category_id: { type: String },
     order_id: { type: String },
     name: { type: String, required: false },
-    image: { type: Array, required: false },
+    image: { type: String, required: false },
     price: { type: Number, required: false },
     totalPrice: { type: Number, required: false },
-    status: { type: Number, required: true, default: 1 }, // 0: Out of stock - 1: Stocking
-    quantity: { type: Number ,default: 0 , required: false},
+    status: { type: String, default: EProductStatus.REGISTER_ORDER }, // 0: Out of stock - 1: Stocking
+    quantity: { type: Number, default: 0, required: false },
     shipCompany: { type: String },
     description: { type: String },
     estimatedWeight: { type: Number },
