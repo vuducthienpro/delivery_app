@@ -16,6 +16,6 @@ router.delete('/:id', deleteOrderByIdSchema, validateRequestSchema, authAdminAnd
 router.post('/purchase-order', authAdminAndUser, OrderController.purchaseOrder);
 router.post('/ship-order', authAdminAndUser, OrderController.shipOrder);
 router.get('/user/order-history', authAdminAndUser, OrderController.historyOrderUser);
-router.put('/delivery-date-time/:id',authAdminAndUser,OrderController.updateDeliveryDateTime);
-
+router.put('/delivery-date-time/:id', authAdminAndUser, OrderController.updateDeliveryDateTime);
+router.put('/update-status/:id', authAdminAndUser, OrderController.updateStatusOrder);
 export default router;

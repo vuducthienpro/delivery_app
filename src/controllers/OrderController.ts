@@ -151,18 +151,30 @@ export class OrderController {
       });
     }
   };
-  public static updateDeliveryDateTime= async (req,res,next)=>{
+  public static updateDeliveryDateTime = async (req, res, next) => {
     try {
-      const data = await OrderService.updateDeliveryDateTime(req.user._id,req.params.id,req.body.date,req.body.time);
+      const data = await OrderService.updateDeliveryDateTime(req.user._id, req.params.id, req.body.date, req.body.time);
       return res.json({
         status: status.OK,
         data,
       });
-    }
-    catch (error){
+    } catch (error) {
       res.json({
         error,
       });
     }
-  }
+  };
+  public static updateStatusOrder = async (req, res, next) => {
+    try {
+      const data = await OrderService.updateStatusOrder(req.params.id, req.body.status);
+      return res.json({
+        status: status.OK,
+        data,
+      });
+    } catch (error) {
+      res.json({
+        error,
+      });
+    }
+  };
 }

@@ -2,7 +2,7 @@ import Order, { OrderDocument } from '../models/Order';
 import Product from '../models/Product';
 import { FilterQuery, DocumentDefinition, UpdateQuery, QueryOptions } from 'mongoose';
 import { CreatePurchaseOrder, CreateShipOrder } from './../interface/order.interface';
-import { EOrderType } from './../constant/order.status';
+import { EOrderType, EOrderStatus } from './../constant/order.status';
 export class OrderService {
   public static getAllOrder = async (query: FilterQuery<OrderDocument>) => {
     let data: any;
@@ -23,11 +23,11 @@ export class OrderService {
     } else {
       offset = Number(query.limit);
     }
-    return Order.find().populate('products').populate('users').skip(offset).limit(limit);
+    return Order.find().populate('products').populate('user').skip(offset).limit(limit);
   };
 
   public static getOrder = (query: FilterQuery<OrderDocument>) => {
-    return Order.findById(query);
+    return Order.findById(query).populate('products').populate('user');
   };
 
   public static historyOrder = (userId, query: FilterQuery<OrderDocument>) => {
@@ -79,7 +79,7 @@ export class OrderService {
     const products = await Promise.all(
       data.products.map((product) => {
         return Product.create({
-          url:product.url,
+          url: product.url,
           name: product.name,
           quantity: product?.quantity || 0,
           customerNote: product.note,
@@ -90,7 +90,9 @@ export class OrderService {
       user: userId,
       ...data,
       products: products.map((pr) => pr._id),
-      quantity:data.products.reduce((a,b)=>{return a + b.quantity},0),
+      quantity: data.products.reduce((a, b) => {
+        return a + b.quantity;
+      }, 0),
     });
     return orderDetial;
   };
@@ -105,26 +107,36 @@ export class OrderService {
         });
       }),
     );
-    const quatity = data.products.reduce((a,b)=>{return a + b.quantity},0) ;
+    const quatity = data.products.reduce((a, b) => {
+      return a + b.quantity;
+    }, 0);
     const orderDetial = await Order.create({
       user: userId,
       ...data,
       orderType: EOrderType.SHIP_ORDER,
       products: products.map((pr) => pr._id),
-      quantity:isNaN(quatity)?0:quatity,
+      quantity: isNaN(quatity) ? 0 : quatity,
     });
     return orderDetial;
   };
-  public static historyOrderUser=async (userId:string,page:number=1,limit:number=10)=>{
+  public static historyOrderUser = async (userId: string, page: number = 1, limit: number = 10) => {
     const listOrder = await Order.find({
-      user:userId,
+      user: userId,
+    }).sort(['updated_at', -1]);
+    return listOrder;
+  };
+  public static updateDeliveryDateTime = async (userId: string, orderId: string, date: Date, time: string) => {
+    return Order.findByIdAndUpdate(orderId, {
+      deliveryDate: date,
+      deliveryTime: time,
+      status: EOrderStatus.DECIED_DELIVERY_DATE_TIME,
     });
-    return listOrder ;
-  }
-  public static updateDeliveryDateTime = async (userId:string,orderId:string,date:Date,time:string)=>{
-    return Order.findByIdAndUpdate(orderId,{
-      deliveryDate:date,
-      deliveryTime:time,
-    })
-  }
+  };
+  public static updateStatusOrder = async (orderId: string, status: string) => {
+    if ((Object as any).values(EOrderStatus).includes(status)) {
+      return Order.findByIdAndUpdate(orderId, {
+        status,
+      });
+    }
+  };
 }
