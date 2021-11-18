@@ -22,4 +22,15 @@ export default class PackController {
       return res.json({ error });
     }
   };
+  public static getDetialPack = async (req, res, next) => {
+    try {
+      const data = await PackService.getDetial(req.params.id);
+      return res.json({
+        status: 200,
+        data,
+      });
+    } catch (error) {
+      return res.status(500).json({ error });
+    }
+  };
 }

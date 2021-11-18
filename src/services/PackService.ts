@@ -9,4 +9,7 @@ export default class PackService {
       .limit(page)
       .sort({ created_at: -1 });
   };
+  public static getDetial = async (id:string)=>{
+    return Pack.findById(id);
+  }
 }
