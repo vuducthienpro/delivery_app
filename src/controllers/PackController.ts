@@ -33,4 +33,15 @@ export default class PackController {
       return res.status(500).json({ error });
     }
   };
+  public static updatePack = async (req,res,next)=>{
+    try {
+        const data = await PackService.updatePack(req.params.id,req.body);
+        return res.json({
+          status: 200,
+          data,
+        });
+      } catch (error) {
+        return res.status(500).json({ error });
+      }
+  }
 }

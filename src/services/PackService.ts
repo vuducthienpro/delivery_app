@@ -12,4 +12,7 @@ export default class PackService {
   public static getDetial = async (id:string)=>{
     return Pack.findById(id);
   }
+  public static updatePack = async (id:string,data:any)=>{
+      return Pack.findByIdAndUpdate(id,{...data});
+  }
 }
