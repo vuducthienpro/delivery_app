@@ -22,6 +22,7 @@ import orderRouter from './routes/order';
 import adminRouter from './routes/admin';
 import feedbackRouter from './routes/feedback';
 import uploadRouter from './routes/upload';
+import packRouter from './routes/pack';
 
 // log
 import winston from './config/winston';
@@ -96,6 +97,7 @@ app.use('/order', orderRouter);
 app.use('/admin', adminRouter);
 app.use('/feedback', feedbackRouter);
 app.use('/upload',uploadRouter);
+app.use('/pack',packRouter);
 app.get('/', (req, res) => {
   res.cookie('vdthien', 'cookie', { httpOnly: true, maxAge: 3600000 });
   res.json({
