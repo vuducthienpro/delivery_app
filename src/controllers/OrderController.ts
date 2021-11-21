@@ -146,8 +146,10 @@ export class OrderController {
         data,
       });
     } catch (error) {
+      console.log(error);
       res.status(500).json({
         status: status.BAD_REQUEST,
+        error,
       });
     }
   };

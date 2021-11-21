@@ -24,6 +24,7 @@
   },
   "homepage": "https://github.com/d10cn2btt/typescript-nodejs#readme",
   "dependencies": {
+    "@line/bot-sdk": "^7.4.0",
     "@types/cookie-parser": "^1.4.2",
     "@types/jsonwebtoken": "^8.5.5",
     "@types/multer": "^1.4.7",
