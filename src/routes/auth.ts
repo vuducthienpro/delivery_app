@@ -165,7 +165,7 @@ router.post('/login-line', async (req, res) => {
     let resultLine = await request({ method: 'GET', url: dataLine, headers: { Authorization: tokenLine } });
     resultLine = JSON.parse(resultLine);
     winston.info(resultLine.userId);
-    const fillUser = await User.findOne({ social: 'line', social_id: resultLine.id });
+    const fillUser = await User.findOne({ social: 'line', social_id: resultLine.userId });
     let token: string;
     if (fillUser) {
       token = await jwt.sign({ id: fillUser._id }, HEADER_JWT_ALG);
