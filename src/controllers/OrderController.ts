@@ -179,4 +179,17 @@ export class OrderController {
       });
     }
   };
+  public static agreeDelivery=async (req,res,next)=>{
+    try {
+      const data = await OrderService.agreeDelivery(req.params.id);
+      return res.json({
+        status: status.OK,
+        data,
+      });
+    } catch (error) {
+      res.json({
+        error,
+      });
+    }
+  }
 }

@@ -3,6 +3,7 @@ import Product from '../models/Product';
 import { FilterQuery, DocumentDefinition, UpdateQuery, QueryOptions } from 'mongoose';
 import { CreatePurchaseOrder, CreateShipOrder } from './../interface/order.interface';
 import { EOrderType, EOrderStatus } from './../constant/order.status';
+import { linePushMessage } from './../common/line.helper';
 export class OrderService {
   public static getAllOrder = async (query: FilterQuery<OrderDocument>) => {
     let data: any;
@@ -94,6 +95,7 @@ export class OrderService {
         return a + b.quantity;
       }, 0),
     });
+
     return orderDetial;
   };
   public static createShipOrder = async (userId: string, data: CreateShipOrder) => {
@@ -139,4 +141,9 @@ export class OrderService {
       });
     }
   };
+  public static agreeDelivery = async (orderId:string)=>{
+    return Order.findByIdAndUpdate(orderId,{
+      status:EOrderStatus.AGREE_FIX_PRICE,
+    })
+  }
 }

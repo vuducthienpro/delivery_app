@@ -18,4 +18,5 @@ router.post('/ship-order', authAdminAndUser, OrderController.shipOrder);
 router.get('/user/order-history', authAdminAndUser, OrderController.historyOrderUser);
 router.put('/delivery-date-time/:id', authAdminAndUser, OrderController.updateDeliveryDateTime);
 router.put('/update-status/:id', authAdminAndUser, OrderController.updateStatusOrder);
+router.put('/agree-delivery/:id',authAdminAndUser, OrderController.agreeDelivery)
 export default router;
