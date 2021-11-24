@@ -53,24 +53,24 @@ export class ProductController {
   };
 
   public static updateProduct = async (req, res, next) => {
-    const dataBody = req.body;
-    if (req.files && req.files.length !== 0) {
-      dataBody.image = [];
-      req.files.forEach((element) => {
-        dataBody.image.push(element.filename);
+    try {
+      const response = await ProductService.updateProduct(req.params.id, req.body);
+      if (!response) {
+        return res.json({
+          status: status.BAD_REQUEST,
+          message: message.UPDATE_PRODUCT_FALSE,
+        });
+      }
+      return res.json({
+        status: status.OK,
+        data: response,
       });
-    }
-    const response = await ProductService.updateProduct(req.params.id, dataBody);
-    if (!response) {
+    } catch (error) {
       return res.json({
         status: status.BAD_REQUEST,
-        message: message.UPDATE_PRODUCT_FALSE,
+        error,
       });
     }
-    return res.json({
-      status: status.OK,
-      data: response,
-    });
   };
 
   public static DeleteProduct = async (req, res, next) => {
@@ -100,4 +100,18 @@ export class ProductController {
       });
     }
   };
+  public static addPackage= async(req,res,next)=>{
+    try {
+      const result = await ProductService.addPackage(req.params.id,req.body.packageId);
+      return res.json({
+        status: status.OK,
+        data:result,
+      });
+    } catch (error) {
+      return res.json({
+        status: status.OK,
+        error,
+      });
+    }
+  }
 }

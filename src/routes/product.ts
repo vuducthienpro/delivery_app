@@ -8,11 +8,12 @@ import authAdminAndUser from '../middleware/authAdminAndUser';
 
 const router = Router();
 
-router.get('/', authAdminAndUser, ProductController.getCategory);
+router.get('/', ProductController.getCategory);
 router.get('/:id', getCategoryByIdSchema, validateRequestSchema, authAdminAndUser, ProductController.getProductById);
 router.post('/', upload.array('image', 5), insertProductSchema, validateRequestSchema, authAdmin, ProductController.insertProduct);
-router.put('/:id', upload.array('image', 5), updateProductSchema, validateRequestSchema, authAdmin, ProductController.updateProduct);
+router.put('/:id', ProductController.updateProduct);
 router.delete('/:id', deleteCategoryByIdSchema, validateRequestSchema, authAdmin, ProductController.DeleteProduct);
 router.put('/update-status/:id', ProductController.updateStatusProduct);
+router.put('/add-package/:id',ProductController.addPackage);
 
 export default router;

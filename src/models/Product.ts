@@ -17,6 +17,7 @@ export interface ProductDocument extends mongoose.Document {
   confirmed: boolean;
   customerNote: string;
   staffNote: string;
+  orderDate: Date;
 }
 
 const schemaOptions = {
@@ -41,6 +42,8 @@ const ProductSchema = new mongoose.Schema(
     confirmed: { type: Boolean, default: false },
     customerNote: { type: String },
     staffNote: String,
+    pack: { type: Schema.Types.ObjectId, ref: 'Pack' },
+    orderDate: { type: Date, default: Date.now },
   },
   schemaOptions,
 );

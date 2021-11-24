@@ -28,6 +28,7 @@ export class ProductService {
     // winston.info(typeof limit);
     // winston.info(typeof offset);
     return await Product.find({ name: { $regex: '.*' + data + '.*' } })
+      .populate('pack')
       .skip(offset)
       .limit(limit);
   };
@@ -70,4 +71,9 @@ export class ProductService {
       });
     }
   };
+  public static addPackage= async (productId:string,packageId:string)=>{
+    return Product.findByIdAndUpdate(productId,{
+      pack:packageId,
+    })
+  }
 }
