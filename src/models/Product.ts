@@ -18,6 +18,7 @@ export interface ProductDocument extends mongoose.Document {
   customerNote: string;
   staffNote: string;
   orderDate: Date;
+  orderNo:string ;
 }
 
 const schemaOptions = {
@@ -44,6 +45,9 @@ const ProductSchema = new mongoose.Schema(
     staffNote: String,
     pack: { type: Schema.Types.ObjectId, ref: 'Pack' },
     orderDate: { type: Date, default: Date.now },
+    orderNo: { type: String },
+    order: { type: Schema.Types.ObjectId, ref: 'Order' },
+
   },
   schemaOptions,
 );

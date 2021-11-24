@@ -77,6 +77,15 @@ export class OrderService {
     return Order.deleteOne(query);
   };
   public static createPurchaseOrder = async (userId: string, data: CreatePurchaseOrder): Promise<any> => {
+    const productsData = data.products;
+    delete data.products;
+    const orderDetial = await Order.create({
+      user: userId,
+      ...data,
+      quantity: productsData.reduce((a, b) => {
+        return a + b.quantity;
+      }, 0),
+    });
     const products = await Promise.all(
       data.products.map((product) => {
         return Product.create({
@@ -84,47 +93,47 @@ export class OrderService {
           name: product.name,
           quantity: product?.quantity || 0,
           customerNote: product.note,
+          orderNo: orderDetial.orderNo,
+          order: orderDetial._id,
         });
       }),
     );
-    const orderDetial = await Order.create({
-      user: userId,
-      ...data,
-      products: products.map((pr) => pr._id),
-      quantity: data.products.reduce((a, b) => {
-        return a + b.quantity;
-      }, 0),
-    });
-
+    orderDetial.products = products.map((pr) => pr._id);
+    await orderDetial.save();
     return orderDetial;
   };
   public static createShipOrder = async (userId: string, data: CreateShipOrder) => {
+    const quatity = data.products.reduce((a, b) => {
+      return a + b.quantity;
+    }, 0);
+    const productsData = data.products;
+    delete data.products;
+    const orderDetial = await Order.create({
+      user: userId,
+      ...data,
+      orderType: EOrderType.SHIP_ORDER,
+      quantity: isNaN(quatity) ? 0 : quatity,
+    });
     const products = await Promise.all(
-      data.products.map((product) => {
+      productsData.map((product) => {
         return Product.create({
           image: product.image,
           name: product.name,
           quantity: product.quantity,
           customerNote: product.note,
+          orderNo: orderDetial.orderNo,
+          order: orderDetial._id,
         });
       }),
     );
-    const quatity = data.products.reduce((a, b) => {
-      return a + b.quantity;
-    }, 0);
-    const orderDetial = await Order.create({
-      user: userId,
-      ...data,
-      orderType: EOrderType.SHIP_ORDER,
-      products: products.map((pr) => pr._id),
-      quantity: isNaN(quatity) ? 0 : quatity,
-    });
+    orderDetial.products = products.map((pr) => pr._id);
+    await orderDetial.save();
     return orderDetial;
   };
   public static historyOrderUser = async (userId: string, page: number = 1, limit: number = 10) => {
     const listOrder = await Order.find({
       user: userId,
-    }).sort({'updated_at': -1});
+    }).sort({ updated_at: -1 });
     return listOrder;
   };
   public static updateDeliveryDateTime = async (userId: string, orderId: string, date: Date, time: string) => {
@@ -141,9 +150,9 @@ export class OrderService {
       });
     }
   };
-  public static agreeDelivery = async (orderId:string)=>{
-    return Order.findByIdAndUpdate(orderId,{
-      status:EOrderStatus.AGREE_FIX_PRICE,
-    })
-  }
+  public static agreeDelivery = async (orderId: string) => {
+    return Order.findByIdAndUpdate(orderId, {
+      status: EOrderStatus.AGREE_FIX_PRICE,
+    });
+  };
 }
