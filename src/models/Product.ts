@@ -6,6 +6,7 @@ export interface ProductDocument extends mongoose.Document {
   order: number;
   name: string;
   image: string;
+  url:string ;
   price: number;
   total: number;
   status: string;
@@ -18,7 +19,7 @@ export interface ProductDocument extends mongoose.Document {
   customerNote: string;
   staffNote: string;
   orderDate: Date;
-  orderNo:string ;
+  orderNo: string;
 }
 
 const schemaOptions = {
@@ -33,6 +34,7 @@ const ProductSchema = new mongoose.Schema(
     name: { type: String, required: false },
     image: { type: String, required: false },
     price: { type: Number, required: false },
+    url: { type: String },
     totalPrice: { type: Number, required: false },
     status: { type: String, default: EProductStatus.REGISTER_ORDER }, // 0: Out of stock - 1: Stocking
     quantity: { type: Number, default: 0, required: false },
@@ -47,7 +49,6 @@ const ProductSchema = new mongoose.Schema(
     orderDate: { type: Date, default: Date.now },
     orderNo: { type: String },
     order: { type: Schema.Types.ObjectId, ref: 'Order' },
-
   },
   schemaOptions,
 );
