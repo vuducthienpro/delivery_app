@@ -87,7 +87,7 @@ export class OrderService {
       }, 0),
     });
     const products = await Promise.all(
-      data.products.map((product) => {
+      productsData.map((product) => {
         return Product.create({
           url: product.url,
           name: product.name,
