@@ -17,6 +17,7 @@ export interface ProductDocument extends mongoose.Document {
   fixedWeight: number;
   confirmed: boolean;
   customerNote: string;
+  customerName:string ;
   staffNote: string;
   orderDate: Date;
   orderNo: string;
@@ -44,6 +45,7 @@ const ProductSchema = new mongoose.Schema(
     fixedWeight: Number,
     confirmed: { type: Boolean, default: false },
     customerNote: { type: String },
+    customerName:{type:String},
     staffNote: String,
     pack: { type: Schema.Types.ObjectId, ref: 'Pack' },
     orderDate: { type: Date, default: Date.now },

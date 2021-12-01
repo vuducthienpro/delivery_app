@@ -113,7 +113,8 @@ export class OrderController {
   public static purchaseOrder = async (req, res, next) => {
     try {
       const userId: any = req.user?._id;
-      const data = await OrderService.createPurchaseOrder(userId, req.body);
+      console.log(req.user);
+      const data = await OrderService.createPurchaseOrder(userId, req.body,req.user?.name);
       return res.json({
         status: status.OK,
         data,
@@ -128,7 +129,7 @@ export class OrderController {
   };
   public static shipOrder = async (req, res, next) => {
     try {
-      const data = await OrderService.createShipOrder(req.user._id, req.body);
+      const data = await OrderService.createShipOrder(req.user._id, req.body,req.user?.name);
       return res.json({
         status: status.OK,
         data,

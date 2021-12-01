@@ -76,7 +76,7 @@ export class OrderService {
   public static deleteOrder = (query: FilterQuery<OrderDocument>) => {
     return Order.deleteOne(query);
   };
-  public static createPurchaseOrder = async (userId: string, data: CreatePurchaseOrder): Promise<any> => {
+  public static createPurchaseOrder = async (userId: string, data: CreatePurchaseOrder,customerName?:string): Promise<any> => {
     const productsData = data.products;
     delete data.products;
     const orderDetial = await Order.create({
@@ -95,6 +95,7 @@ export class OrderService {
           customerNote: product.note,
           orderNo: orderDetial.orderNo,
           order: orderDetial._id,
+          customerName,
         });
       }),
     );
@@ -102,7 +103,7 @@ export class OrderService {
     await orderDetial.save();
     return orderDetial;
   };
-  public static createShipOrder = async (userId: string, data: CreateShipOrder) => {
+  public static createShipOrder = async (userId: string, data: CreateShipOrder,customerName?:string) => {
     const quatity = data.products.reduce((a, b) => {
       return a + b.quantity;
     }, 0);
@@ -123,6 +124,7 @@ export class OrderService {
           customerNote: product.note,
           orderNo: orderDetial.orderNo,
           order: orderDetial._id,
+          customerName,
         });
       }),
     );
