@@ -1,5 +1,5 @@
 import HistoryNotificationModel from './../models/history-notification';
-export class HistoryService {
+export class HistoryNotificationService {
     public static addHistory=(type:string,orderId:string)=>{
         return HistoryNotificationModel.create({
             type,

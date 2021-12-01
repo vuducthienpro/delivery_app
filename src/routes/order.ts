@@ -18,5 +18,9 @@ router.post('/ship-order', authAdminAndUser, OrderController.shipOrder);
 router.get('/user/order-history', authAdminAndUser, OrderController.historyOrderUser);
 router.put('/delivery-date-time/:id', authAdminAndUser, OrderController.updateDeliveryDateTime);
 router.put('/update-status/:id', authAdminAndUser, OrderController.updateStatusOrder);
-router.put('/agree-delivery/:id',authAdminAndUser, OrderController.agreeDelivery)
+router.put('/agree-delivery/:id',authAdminAndUser, OrderController.agreeDelivery);
+router.put('/notification-make-parchase-bill/:id', OrderController.sendNotificationMakePurchaseBill);
+router.put('/notification-finish-weight-measuremen/:id', OrderController.sendNotificationFinishWeightMeasument);
+router.put('/notification-arrived-in-hanoi/:id', OrderController.sendNotificationArrivedHN);
+router.get('/history-notfication/:id',OrderController.historyNotificationOrder);
 export default router;

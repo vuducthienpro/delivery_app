@@ -1,6 +1,9 @@
 import { OrderService } from '../services/OrderService';
 import { message, status } from '../config/constant';
 import winston from '../config/winston';
+import { HistoryNotificationService } from './../services/historyNotificationService';
+import { sendNotificationToMobile } from './../common/notification.helper';
+import { EHistoryNotificationType } from './../models/history-notification';
 
 export class OrderController {
   public static getAllOrder = async (req, res) => {
@@ -114,7 +117,7 @@ export class OrderController {
     try {
       const userId: any = req.user?._id;
       console.log(req.user);
-      const data = await OrderService.createPurchaseOrder(userId, req.body,req.user?.name);
+      const data = await OrderService.createPurchaseOrder(userId, req.body, req.user?.name);
       return res.json({
         status: status.OK,
         data,
@@ -129,7 +132,7 @@ export class OrderController {
   };
   public static shipOrder = async (req, res, next) => {
     try {
-      const data = await OrderService.createShipOrder(req.user._id, req.body,req.user?.name);
+      const data = await OrderService.createShipOrder(req.user._id, req.body, req.user?.name);
       return res.json({
         status: status.OK,
         data,
@@ -182,13 +185,110 @@ export class OrderController {
       });
     }
   };
-  public static agreeDelivery=async (req,res,next)=>{
+  public static agreeDelivery = async (req, res, next) => {
     try {
       const data = await OrderService.agreeDelivery(req.params.id);
       return res.json({
         status: status.OK,
         data,
       });
+    } catch (error) {
+      res.json({
+        error,
+      });
+    }
+  };
+  public static sendNotificationMakePurchaseBill = async (req, res, next) => {
+    try {
+      const orderDetial = await OrderService.getOrder(req.params.id);
+      if (!orderDetial) {
+        return res.status(400).json({
+          status: status.NOT_FOUND,
+          message:'order not found',
+        });
+      }
+      console.log(orderDetial);
+      sendNotificationToMobile({
+        registration_ids:orderDetial.user.token,
+        notification:{
+          title:'make purcha bill',
+          body:'make purcha bill',
+        },
+      });
+      await HistoryNotificationService.addHistory(EHistoryNotificationType.MAKE_PUSCHA_BILL,req.params.id);
+      return res.status(200).json({
+        status: status.OK,
+        message:'success',
+      })
+    } catch (error) {
+      res.json({
+        error,
+      });
+    }
+  };
+  public static sendNotificationFinishWeightMeasument = async (req, res, next) => {
+    try {
+      const orderDetial = await OrderService.getOrder(req.params.id);
+      if (!orderDetial) {
+        return res.status(400).json({
+          status: status.NOT_FOUND,
+          message:'order not found',
+        });
+      }
+      console.log(orderDetial);
+      sendNotificationToMobile({
+        registration_ids:orderDetial.user.token,
+        notification:{
+          title:'make purcha bill',
+          body:'make purcha bill',
+        },
+      });
+      await HistoryNotificationService.addHistory(EHistoryNotificationType.FINISH_WEIGHT_MEASUREMENT,req.params.id);
+      return res.status(200).json({
+        status: status.OK,
+        message:'success',
+      })
+    } catch (error) {
+      res.json({
+        error,
+      });
+    }
+  };
+  public static sendNotificationArrivedHN = async (req, res, next) => {
+    try {
+      const orderDetial = await OrderService.getOrder(req.params.id);
+      if (!orderDetial) {
+        return res.status(400).json({
+          status: status.NOT_FOUND,
+          message:'order not found',
+        });
+      }
+      console.log(orderDetial);
+      sendNotificationToMobile({
+        registration_ids:orderDetial.user.token,
+        notification:{
+          title:'make purcha bill',
+          body:'make purcha bill',
+        },
+      });
+      await HistoryNotificationService.addHistory(EHistoryNotificationType.ARRIVED_IN_HANOI,req.params.id);
+      return res.status(200).json({
+        status: status.OK,
+        message:'success',
+      })
+    } catch (error) {
+      res.json({
+        error,
+      });
+    }
+  };
+  public static historyNotificationOrder = async (req, res, next)=>{
+    try {
+      const data = await HistoryNotificationService.getList(req.params.id);
+      return res.status(200).json({
+        status: status.OK,
+        data,
+      })
     } catch (error) {
       res.json({
         error,
