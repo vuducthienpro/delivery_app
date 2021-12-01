@@ -30,7 +30,8 @@ export class ProductService {
     return await Product.find({ name: { $regex: '.*' + data + '.*' } })
       .populate('pack')
       .skip(offset)
-      .limit(limit);
+      .limit(limit)
+      .sort({ created_at: -1 });
   };
 
   public static getProductById = (id: FilterQuery<CategoryDocument>) => {

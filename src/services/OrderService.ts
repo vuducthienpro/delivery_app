@@ -24,7 +24,7 @@ export class OrderService {
     } else {
       offset = Number(query.limit);
     }
-    return Order.find().populate('products').populate('user').skip(offset).limit(limit);
+    return Order.find().populate('products').populate('user').skip(offset).limit(limit).sort({ created_at: -1 });
   };
 
   public static getOrder = (query: FilterQuery<OrderDocument>) => {
@@ -76,7 +76,7 @@ export class OrderService {
   public static deleteOrder = (query: FilterQuery<OrderDocument>) => {
     return Order.deleteOne(query);
   };
-  public static createPurchaseOrder = async (userId: string, data: CreatePurchaseOrder,customerName?:string): Promise<any> => {
+  public static createPurchaseOrder = async (userId: string, data: CreatePurchaseOrder, customerName?: string): Promise<any> => {
     const productsData = data.products;
     delete data.products;
     const orderDetial = await Order.create({
@@ -103,7 +103,7 @@ export class OrderService {
     await orderDetial.save();
     return orderDetial;
   };
-  public static createShipOrder = async (userId: string, data: CreateShipOrder,customerName?:string) => {
+  public static createShipOrder = async (userId: string, data: CreateShipOrder, customerName?: string) => {
     const quatity = data.products.reduce((a, b) => {
       return a + b.quantity;
     }, 0);
