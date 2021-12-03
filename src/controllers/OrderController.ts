@@ -60,27 +60,34 @@ export class OrderController {
   };
 
   public static updateOrder = async (req, res, next) => {
-    const id = req.params.id;
-    const dataOrder = OrderService.getOrder(id);
-    if (!dataOrder) {
-      return res.json({
-        status: status.NOT_FOUND,
-        message: message.NOT_FOUND,
-      });
-    } else {
-      const request = req.body;
-      const order = await OrderService.findAndUpdateOrder(req.params.id, request, { new: true });
-      if (!order) {
+    try {
+      const id = req.params.id;
+      const dataOrder = OrderService.getOrder(id);
+      if (!dataOrder) {
         return res.json({
-          status: status.NO_CONTENT,
-          message: message.UPDATE_ORDER_FALSE,
+          status: status.NOT_FOUND,
+          message: message.NOT_FOUND,
         });
       } else {
-        return res.json({
-          status: status.OK,
-          data: order,
-        });
+        const request = req.body;
+        const order = await OrderService.findAndUpdateOrder(req.params.id, request, { new: true });
+        if (!order) {
+          return res.json({
+            status: status.NO_CONTENT,
+            message: message.UPDATE_ORDER_FALSE,
+          });
+        } else {
+          return res.json({
+            status: status.OK,
+            data: order,
+          });
+        }
       }
+    } catch (error) {
+      return res.json({
+        status: status.OK,
+        error,
+      });
     }
   };
 
@@ -204,22 +211,22 @@ export class OrderController {
       if (!orderDetial) {
         return res.status(400).json({
           status: status.NOT_FOUND,
-          message:'order not found',
+          message: 'order not found',
         });
       }
       console.log(orderDetial);
       sendNotificationToMobile({
-        registration_ids:orderDetial.user.token,
-        notification:{
-          title:'make purcha bill',
-          body:'make purcha bill',
+        registration_ids: orderDetial.user.token,
+        notification: {
+          title: 'make purcha bill',
+          body: 'make purcha bill',
         },
       });
-      await HistoryNotificationService.addHistory(EHistoryNotificationType.MAKE_PUSCHA_BILL,req.params.id);
+      await HistoryNotificationService.addHistory(EHistoryNotificationType.MAKE_PUSCHA_BILL, req.params.id);
       return res.status(200).json({
         status: status.OK,
-        message:'success',
-      })
+        message: 'success',
+      });
     } catch (error) {
       res.json({
         error,
@@ -232,22 +239,22 @@ export class OrderController {
       if (!orderDetial) {
         return res.status(400).json({
           status: status.NOT_FOUND,
-          message:'order not found',
+          message: 'order not found',
         });
       }
       console.log(orderDetial);
       sendNotificationToMobile({
-        registration_ids:orderDetial.user.token,
-        notification:{
-          title:'make purcha bill',
-          body:'make purcha bill',
+        registration_ids: orderDetial.user.token,
+        notification: {
+          title: 'make purcha bill',
+          body: 'make purcha bill',
         },
       });
-      await HistoryNotificationService.addHistory(EHistoryNotificationType.FINISH_WEIGHT_MEASUREMENT,req.params.id);
+      await HistoryNotificationService.addHistory(EHistoryNotificationType.FINISH_WEIGHT_MEASUREMENT, req.params.id);
       return res.status(200).json({
         status: status.OK,
-        message:'success',
-      })
+        message: 'success',
+      });
     } catch (error) {
       res.json({
         error,
@@ -260,39 +267,39 @@ export class OrderController {
       if (!orderDetial) {
         return res.status(400).json({
           status: status.NOT_FOUND,
-          message:'order not found',
+          message: 'order not found',
         });
       }
       console.log(orderDetial);
       sendNotificationToMobile({
-        registration_ids:orderDetial.user.token,
-        notification:{
-          title:'make purcha bill',
-          body:'make purcha bill',
+        registration_ids: orderDetial.user.token,
+        notification: {
+          title: 'make purcha bill',
+          body: 'make purcha bill',
         },
       });
-      await HistoryNotificationService.addHistory(EHistoryNotificationType.ARRIVED_IN_HANOI,req.params.id);
+      await HistoryNotificationService.addHistory(EHistoryNotificationType.ARRIVED_IN_HANOI, req.params.id);
       return res.status(200).json({
         status: status.OK,
-        message:'success',
-      })
+        message: 'success',
+      });
     } catch (error) {
       res.json({
         error,
       });
     }
   };
-  public static historyNotificationOrder = async (req, res, next)=>{
+  public static historyNotificationOrder = async (req, res, next) => {
     try {
       const data = await HistoryNotificationService.getList(req.params.id);
       return res.status(200).json({
         status: status.OK,
         data,
-      })
+      });
     } catch (error) {
       res.json({
         error,
       });
     }
-  }
+  };
 }
