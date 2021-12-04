@@ -157,4 +157,11 @@ export class OrderService {
       status: EOrderStatus.AGREE_FIX_PRICE,
     });
   };
+  public static deleteProductOrder= (orderId:string,productId:string)=>{
+    return Order.findByIdAndUpdate(orderId,{
+      $pull:{
+        products:productId,
+      },
+    })
+  }
 }

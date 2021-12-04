@@ -23,4 +23,5 @@ router.put('/notification-make-parchase-bill/:id', OrderController.sendNotificat
 router.put('/notification-finish-weight-measuremen/:id', OrderController.sendNotificationFinishWeightMeasument);
 router.put('/notification-arrived-in-hanoi/:id', OrderController.sendNotificationArrivedHN);
 router.get('/history-notfication/:id',OrderController.historyNotificationOrder);
+router.put('/delete-product/:id',OrderController.deleteProductOrder);
 export default router;

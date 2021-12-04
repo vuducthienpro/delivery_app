@@ -4,6 +4,7 @@ import winston from '../config/winston';
 import { HistoryNotificationService } from './../services/historyNotificationService';
 import { sendNotificationToMobile } from './../common/notification.helper';
 import { EHistoryNotificationType } from './../models/history-notification';
+import { ProductService } from './../services/ProductService';
 
 export class OrderController {
   public static getAllOrder = async (req, res) => {
@@ -302,4 +303,18 @@ export class OrderController {
       });
     }
   };
+  public static deleteProductOrder= async  (req,res,next)=>{
+    try {
+      await OrderService.deleteProductOrder(req.params.id,req.body.id);
+      await ProductService.DeleteProduct(req.body.id);
+      return res.status(200).json({
+        status: status.OK,
+      });
+    } catch (error) {
+      console.log(error);
+      res.json({
+        error,
+      });
+    }
+  }
 }
