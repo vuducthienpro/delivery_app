@@ -63,6 +63,7 @@ export class OrderController {
   public static updateOrder = async (req, res, next) => {
     try {
       const id = req.params.id;
+      console.log('id',id);
       const dataOrder = OrderService.getOrder(id);
       if (!dataOrder) {
         return res.json({
@@ -71,7 +72,7 @@ export class OrderController {
         });
       } else {
         const request = req.body;
-        const order = await OrderService.findAndUpdateOrder(req.params.id, request, { new: true });
+        const order = await OrderService.findAndUpdateOrder(id, request, { new: true });
         if (!order) {
           return res.json({
             status: status.NO_CONTENT,

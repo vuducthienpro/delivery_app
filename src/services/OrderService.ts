@@ -27,8 +27,8 @@ export class OrderService {
     return Order.find().populate('products').populate('user').skip(offset).limit(limit).sort({ created_at: -1 });
   };
 
-  public static getOrder = (query: FilterQuery<OrderDocument>) => {
-    return Order.findById(query).populate('products').populate('user');
+  public static getOrder = (id:string) => {
+    return Order.findById(id).populate('products').populate('user');
   };
 
   public static historyOrder = (userId, query: FilterQuery<OrderDocument>) => {
@@ -69,8 +69,8 @@ export class OrderService {
     return oderCreate;
   };
 
-  public static findAndUpdateOrder = (query: FilterQuery<OrderDocument>, update: UpdateQuery<OrderDocument>, options: QueryOptions) => {
-    return Order.findOneAndUpdate(query, update, options);
+  public static findAndUpdateOrder = (id:string, update: UpdateQuery<OrderDocument>, options: QueryOptions) => {
+    return Order.findByIdAndUpdate(id, update, options);
   };
 
   public static deleteOrder = (query: FilterQuery<OrderDocument>) => {

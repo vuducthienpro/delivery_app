@@ -9,7 +9,7 @@ const router = Router();
 
 router.get('/', authAdminAndUser, OrderController.getAllOrder);
 router.get('/history', authAdminAndUser, OrderController.historyOrder);
-router.get('/:id', getOrderByIdSchema, OrderController.getOrderById);
+router.get('/:id', OrderController.getOrderById);
 router.post('/', insertOrderSchema, validateRequestSchema, authUser, OrderController.createOrder);
 router.put('/:id', OrderController.updateOrder);
 router.delete('/:id', deleteOrderByIdSchema, validateRequestSchema, authAdminAndUser, OrderController.deleteOrder);
