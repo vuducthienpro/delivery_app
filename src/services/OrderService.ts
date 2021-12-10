@@ -101,6 +101,8 @@ export class OrderService {
     );
     orderDetial.products = products.map((pr) => pr._id);
     await orderDetial.save();
+    linePushMessage(`'GoawDirectの注文がありました。
+    管理画面を確認してください。 '注文者名 ${customerName}`);
     return orderDetial;
   };
   public static createShipOrder = async (userId: string, data: CreateShipOrder, customerName?: string) => {
@@ -130,6 +132,8 @@ export class OrderService {
     );
     orderDetial.products = products.map((pr) => pr._id);
     await orderDetial.save();
+    linePushMessage(`'GoawDirectの注文がありました。
+    管理画面を確認してください。 '注文者名 ${customerName}`);
     return orderDetial;
   };
   public static historyOrderUser = async (userId: string, page: number = 1, limit: number = 10) => {
@@ -163,5 +167,16 @@ export class OrderService {
         products:productId,
       },
     })
+  }
+  public static addProductToOrder=async (orderId:string,data:any)=>{
+    const orderData = await Order.findById(orderId);
+    const product = await Product.create({
+      ...data,
+      order:orderId,
+      orderNo:orderData.orderNo,
+    });
+    orderData.products.push(product._id);
+    await orderData.save();
+    return product ;
   }
 }

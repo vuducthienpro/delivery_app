@@ -317,4 +317,17 @@ export class OrderController {
       });
     }
   }
+  public static addProductToOrder= async (req,res,next)=>{
+    try {
+      const data = await OrderService.addProductToOrder(req.params.id,req.body);
+      return res.status(200).json({
+        status: status.OK,
+      });
+    } catch (error) {
+      console.log(error);
+      res.json({
+        error,
+      });
+    }
+  }
 }

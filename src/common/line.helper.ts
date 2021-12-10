@@ -7,5 +7,9 @@ const client = new Client({
   channelSecret: CHANNEL_SECRET,
 });
 export const linePushMessage =async (message:string)=>{
-    return client.pushMessage(MANAGE_LINE_ID,{type:'text',text:message});
+    return client.pushMessage(MANAGE_LINE_ID,{type:'text',text:message}).then((data)=>{
+      console.log('send message success',data);
+    }).catch(error=>{
+      console.log('send message fail',error)
+    });
 }
