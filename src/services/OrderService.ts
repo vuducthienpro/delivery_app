@@ -28,7 +28,12 @@ export class OrderService {
   };
 
   public static getOrder = (id:string) => {
-    return Order.findById(id).populate('products').populate('user');
+    return Order.findById(id).populate({
+      path:'products',
+      populate:{
+        path:'pack',
+      },
+    }).populate('user');
   };
 
   public static historyOrder = (userId, query: FilterQuery<OrderDocument>) => {
