@@ -42,6 +42,8 @@ const ProductSchema = new mongoose.Schema(
     shipCompany: { type: String },
     description: { type: String },
     estimatedWeight: { type: Number },
+    measurementWeight: { type: Number },
+    shipWeight: { type: Number },
     fixedWeight: Number,
     confirmed: { type: Boolean, default: false },
     customerNote: { type: String },
