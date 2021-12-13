@@ -45,6 +45,8 @@ const OrderSchema = new mongoose.Schema(
     deliveryMethod: { type: String }, // 0: nomal
     deliveryDate: { type: Date, default: null },
     deliveryTime: { type: String },
+    note: { type: String },
+    extraShipFee: { type: Number },
   },
   schemaOptions,
 );
