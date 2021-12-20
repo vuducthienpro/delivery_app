@@ -37,7 +37,8 @@ const app = express();
 
 // parse various different custom JSON types as JSON
 app.use(bodyParser.json());
-app.use(cors("*"));
+app.use(cors());
+app.options('*', cors())
 // app.use(
 //   cors({
 //     origin: ["http://admin.direct.goaw.net"],
