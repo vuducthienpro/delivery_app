@@ -40,7 +40,7 @@ app.use(bodyParser.json());
 // app.use(cors());
 app.use(
   cors({
-    origin: "*",
+    origin: ["http://admin.direct.goaw.net"],
     credentials: true,
     // allowedHeaders:['Content-Type', 'Authorization'],
   }),
