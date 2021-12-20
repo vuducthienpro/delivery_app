@@ -42,6 +42,7 @@ app.use(
     origin: '*',
     credentials: true,
     methods:'GET,POST,PUT,DELETE',
+    optionSuccessStatus:200,
   }),
 );
 app.use(cookieParser());
