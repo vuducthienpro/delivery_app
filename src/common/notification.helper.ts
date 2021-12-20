@@ -1,5 +1,5 @@
 import  fcmPush from 'fcm-push';
-const PUSH_KEY='AAAAYhjYrUk:APA91bHkb798Tl5zzLzaa8gtRFom21FcGdtt7W3_jnMLfsgrxLqQNYf3nHWN_9qrJPQa82eIlc46kX6__J9HcN2QaELkXup_1-HnagT90QDIv4TMuGiANGss5eq9fiPgcWM2EWOH_foe';
+const PUSH_KEY='AAAAEaa5trk:APA91bGJD5XRbptkvrwiRYpCaCibnXJAduZt8vs6QtODYd-Vjg74STXdd_36QSV-3Zpyl6pa4-_SsV9k4QELhLgSdgahMiQrVVxYrAuRbfyRKS1A9B-3YK78CWyLBGUxVbMCageeaRfY';
 const fcmService = new fcmPush(PUSH_KEY);
 export interface PushMessage{
     to?:string,
