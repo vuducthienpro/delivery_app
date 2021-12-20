@@ -40,9 +40,7 @@ app.use(bodyParser.json());
 // app.use(cors());
 app.use(
   cors({
-    origin: true,
-    credentials: true,
-    allowedHeaders:['Content-Type', 'Authorization'],
+    origin: true
   }),
 );
 app.use(cookieParser());
