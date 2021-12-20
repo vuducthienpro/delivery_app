@@ -37,15 +37,14 @@ const app = express();
 
 // parse various different custom JSON types as JSON
 app.use(bodyParser.json());
-app.use(cors());
-app.options('*', cors())
-// app.use(
-//   cors({
-//     origin: ["http://admin.direct.goaw.net"],
-//     credentials: true,
-//     // allowedHeaders:['Content-Type', 'Authorization'],
-//   }),
-// );
+app.use(
+  cors({
+    origin: true,
+    credentials: true,
+    // allowedHeaders:['Content-Type', 'Authorization'],
+    methods:"GET,POST,PUT,DELETE"
+  }),
+);
 app.use(cookieParser());
 
 // upload image
