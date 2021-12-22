@@ -63,7 +63,7 @@ export class OrderController {
   public static updateOrder = async (req, res, next) => {
     try {
       const id = req.params.id;
-      console.log('id',id);
+      console.log('id', id);
       const dataOrder = OrderService.getOrder(id);
       if (!dataOrder) {
         return res.json({
@@ -220,8 +220,11 @@ export class OrderController {
       sendNotificationToMobile({
         registration_ids: orderDetial.user.token,
         notification: {
-          title: 'make purcha bill',
-          body: 'make purcha bill',
+          title: '購入明細を作成しました',
+          body: 'ご依頼頂きました内容で購入明細を作成致しました。注文履歴から明細をご確認下さい。',
+        },
+        data: {
+          ...orderDetial,
         },
       });
       await HistoryNotificationService.addHistory(EHistoryNotificationType.MAKE_PUSCHA_BILL, req.params.id);
@@ -248,8 +251,11 @@ export class OrderController {
       sendNotificationToMobile({
         registration_ids: orderDetial.user.token,
         notification: {
-          title: 'make purcha bill',
-          body: 'make purcha bill',
+          title: '計量が完了致しました。',
+          body: '配送をご依頼頂いたお荷物の計量が完了致しました。注文履歴から明細をご確認下さい。',
+        },
+        data: {
+          ...orderDetial,
         },
       });
       await HistoryNotificationService.addHistory(EHistoryNotificationType.FINISH_WEIGHT_MEASUREMENT, req.params.id);
@@ -276,8 +282,11 @@ export class OrderController {
       sendNotificationToMobile({
         registration_ids: orderDetial.user.token,
         notification: {
-          title: 'make purcha bill',
-          body: 'make purcha bill',
+          title: 'お荷物のお渡し準備が整いました。',
+          body: '配送をご依頼頂いたお荷物のお渡し準備が整いました。注文履歴から配送希望日をご入力下さい。',
+        },
+        data: {
+          ...orderDetial,
         },
       });
       await HistoryNotificationService.addHistory(EHistoryNotificationType.ARRIVED_IN_HANOI, req.params.id);
@@ -304,9 +313,9 @@ export class OrderController {
       });
     }
   };
-  public static deleteProductOrder= async  (req,res,next)=>{
+  public static deleteProductOrder = async (req, res, next) => {
     try {
-      await OrderService.deleteProductOrder(req.params.id,req.body.id);
+      await OrderService.deleteProductOrder(req.params.id, req.body.id);
       await ProductService.DeleteProduct(req.body.id);
       return res.status(200).json({
         status: status.OK,
@@ -317,10 +326,10 @@ export class OrderController {
         error,
       });
     }
-  }
-  public static addProductToOrder= async (req,res,next)=>{
+  };
+  public static addProductToOrder = async (req, res, next) => {
     try {
-      const data = await OrderService.addProductToOrder(req.params.id,req.body);
+      const data = await OrderService.addProductToOrder(req.params.id, req.body);
       return res.status(200).json({
         status: status.OK,
       });
@@ -330,5 +339,5 @@ export class OrderController {
         error,
       });
     }
-  }
+  };
 }
