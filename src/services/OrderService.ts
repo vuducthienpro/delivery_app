@@ -144,7 +144,7 @@ export class OrderService {
   public static historyOrderUser = async (userId: string, page: number = 1, limit: number = 10) => {
     const listOrder = await Order.find({
       user: userId,
-    }).sort({ updated_at: -1 });
+    }).sort({ updated_at: -1 }).populate('products');
     return listOrder;
   };
   public static updateDeliveryDateTime = async (userId: string, orderId: string, date: Date, time: string) => {

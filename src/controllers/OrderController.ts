@@ -167,6 +167,21 @@ export class OrderController {
   public static historyOrderUser = async (req, res, next) => {
     try {
       const data = await OrderService.historyOrderUser(req.user._id, req.query.page, req.query.limt);
+      const orders = data.map((orderData) => {
+        let totalPrice = 0;
+        let fixedTotalWeight = 0;
+        let fixedTotalFee = 0;
+        orderData.products.forEach((product) => {
+          totalPrice += product.totalPrice ? product.totalPrice : 0;
+          fixedTotalWeight += product.fixedWeight ? product.fixedWeight : 0;
+        });
+        totalPrice *= 225;
+        fixedTotalWeight *= 400000;
+        fixedTotalFee = totalPrice + fixedTotalWeight + (orderData.extraShipFee ? orderData.extraShipFee : 0);
+        orderData.fixedTotalFee = fixedTotalFee;
+        return orderData;
+      });
+      console.log('orders',orders);
       return res.json({
         status: status.OK,
         data,
