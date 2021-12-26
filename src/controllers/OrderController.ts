@@ -31,6 +31,17 @@ export class OrderController {
         message: message.NOT_FOUND,
       });
     }
+    let totalPrice = 0;
+    let fixedTotalWeight = 0;
+    let fixedTotalFee = 0;
+    order.products.forEach((product) => {
+      totalPrice += product.totalPrice ? product.totalPrice : 0;
+      fixedTotalWeight += product.fixedWeight ? product.fixedWeight : 0;
+    });
+    totalPrice *= 225;
+    fixedTotalWeight *= 400000;
+    fixedTotalFee = totalPrice + fixedTotalWeight + (order.extraShipFee ? order.extraShipFee : 0);
+    order.fixedTotalFee = fixedTotalFee ;
     return res.json({
       status: status.OK,
       data: order,

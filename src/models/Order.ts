@@ -47,6 +47,7 @@ const OrderSchema = new mongoose.Schema(
     deliveryTime: { type: String },
     note: { type: String },
     extraShipFee: { type: Number },
+    fixedTotalFee: { type: Number },
   },
   schemaOptions,
 );
