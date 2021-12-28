@@ -250,7 +250,7 @@ export class OrderController {
           body: 'ご依頼頂きました内容で購入明細を作成致しました。注文履歴から明細をご確認下さい。',
         },
         data: {
-          ...orderDetial,
+          id:orderDetial._id
         },
       });
       await HistoryNotificationService.addHistory(EHistoryNotificationType.MAKE_PUSCHA_BILL, req.params.id);
@@ -281,7 +281,7 @@ export class OrderController {
           body: '配送をご依頼頂いたお荷物の計量が完了致しました。注文履歴から明細をご確認下さい。',
         },
         data: {
-          ...orderDetial,
+          id:orderDetial._id
         },
       });
       await HistoryNotificationService.addHistory(EHistoryNotificationType.FINISH_WEIGHT_MEASUREMENT, req.params.id);
@@ -312,7 +312,7 @@ export class OrderController {
           body: '配送をご依頼頂いたお荷物のお渡し準備が整いました。注文履歴から配送希望日をご入力下さい。',
         },
         data: {
-          ...orderDetial,
+          id:orderDetial._id
         },
       });
       await HistoryNotificationService.addHistory(EHistoryNotificationType.ARRIVED_IN_HANOI, req.params.id);
