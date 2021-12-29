@@ -41,7 +41,7 @@ export class OrderController {
     totalPrice *= 225;
     fixedTotalWeight *= 400000;
     fixedTotalFee = totalPrice + fixedTotalWeight + (order.extraShipFee ? order.extraShipFee : 0);
-    order.fixedTotalFee = fixedTotalFee ;
+    order.fixedTotalFee = fixedTotalFee;
     return res.json({
       status: status.OK,
       data: order,
@@ -170,18 +170,23 @@ export class OrderController {
       const orders = data.map((orderData) => {
         let totalPrice = 0;
         let fixedTotalWeight = 0;
+        let estimatedTotalWeight = 0;
         let fixedTotalFee = 0;
+        let estiamtedTotalFee = 0;
         orderData.products.forEach((product) => {
           totalPrice += product.totalPrice ? product.totalPrice : 0;
           fixedTotalWeight += product.fixedWeight ? product.fixedWeight : 0;
+          estimatedTotalWeight += product.estimatedWeight ? product.estimatedWeight : 0;
         });
+        estimatedTotalWeight *= 400000;
         totalPrice *= 225;
         fixedTotalWeight *= 400000;
+        estiamtedTotalFee = totalPrice + estimatedTotalWeight + (orderData.extraShipFee ? orderData.extraShipFee : 0);
         fixedTotalFee = totalPrice + fixedTotalWeight + (orderData.extraShipFee ? orderData.extraShipFee : 0);
-        orderData.fixedTotalFee = fixedTotalFee;
+        orderData.fixedTotalFee = fixedTotalFee > 0 ? fixedTotalFee : estiamtedTotalFee;
         return orderData;
       });
-      console.log('orders',orders);
+      console.log('orders', orders);
       return res.json({
         status: status.OK,
         data,
@@ -250,7 +255,7 @@ export class OrderController {
           body: 'ご依頼頂きました内容で購入明細を作成致しました。注文履歴から明細をご確認下さい。',
         },
         data: {
-          id:orderDetial._id,
+          id: orderDetial._id,
         },
       });
       await HistoryNotificationService.addHistory(EHistoryNotificationType.MAKE_PUSCHA_BILL, req.params.id);
@@ -281,7 +286,7 @@ export class OrderController {
           body: '配送をご依頼頂いたお荷物の計量が完了致しました。注文履歴から明細をご確認下さい。',
         },
         data: {
-          id:orderDetial._id,
+          id: orderDetial._id,
         },
       });
       await HistoryNotificationService.addHistory(EHistoryNotificationType.FINISH_WEIGHT_MEASUREMENT, req.params.id);
@@ -312,7 +317,7 @@ export class OrderController {
           body: '配送をご依頼頂いたお荷物のお渡し準備が整いました。注文履歴から配送希望日をご入力下さい。',
         },
         data: {
-          id:orderDetial._id,
+          id: orderDetial._id,
         },
       });
       await HistoryNotificationService.addHistory(EHistoryNotificationType.ARRIVED_IN_HANOI, req.params.id);
