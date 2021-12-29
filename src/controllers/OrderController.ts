@@ -183,7 +183,7 @@ export class OrderController {
         fixedTotalWeight *= 400000;
         estiamtedTotalFee = totalPrice + estimatedTotalWeight + (orderData.extraShipFee ? orderData.extraShipFee : 0);
         fixedTotalFee = totalPrice + fixedTotalWeight + (orderData.extraShipFee ? orderData.extraShipFee : 0);
-        orderData.fixedTotalFee = fixedTotalFee > 0 ? fixedTotalFee : estiamtedTotalFee;
+        orderData.fixedTotalFee = fixedTotalWeight > 0 ? fixedTotalFee : estiamtedTotalFee;
         return orderData;
       });
       console.log('orders', orders);
